@@ -139,6 +139,10 @@ const identityLinks = [
         </li>
       ))}
     </ul>
+    <div class="mobile-controls" style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px; padding: 0 16px;">
+      <DiscoveryPrompt client:load />
+      <EnvironmentSwitcher client:load />
+    </div>
     <div class="mobile-identity-list">
       <p class="mobile-section-label">External</p>
       {identityLinks.map((link) => (

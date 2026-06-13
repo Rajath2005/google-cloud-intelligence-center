@@ -20,7 +20,7 @@ export const CloudIntelligenceMonolith: React.FC<CloudIntelligenceMonolithProps>
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
-    <div className="relative w-full h-[600px] lg:h-[800px] flex items-center justify-center lg:justify-end overflow-hidden rounded-3xl bg-[#09090b] border border-white/5">
+    <div className="relative w-full h-[480px] lg:h-[800px] flex items-center justify-center lg:justify-end overflow-hidden rounded-3xl bg-[#09090b] border border-white/5">
       
       {/* 
         Layer 1: The Foundation
@@ -37,7 +37,7 @@ export const CloudIntelligenceMonolith: React.FC<CloudIntelligenceMonolithProps>
         The mission control overlays dominating the foreground.
         On desktop, aligned to the right. On mobile, centered.
       */}
-      <div className="relative z-10 w-full px-4 lg:px-12 py-8 flex justify-center lg:justify-end">
+      <div className="relative z-10 w-full px-2 py-4 lg:px-12 lg:py-8 flex justify-center lg:justify-end">
         <IntelligenceHub
           profile={profile}
           analytics={analytics}

@@ -39,11 +39,11 @@ export const IntelligenceHub: React.FC<IntelligenceHubProps> = ({
   const syncTime = new Date(sync.lastSynced).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
-    <div className="flex flex-col gap-6 w-full max-w-sm pointer-events-auto">
+    <div className="flex flex-col gap-4 sm:gap-6 w-full max-w-full sm:max-w-sm pointer-events-auto">
       
       {/* 1. Core Metrics Panel */}
       <motion.div 
-        className="flex flex-col gap-4 p-5 rounded-2xl bg-zinc-900/60 backdrop-blur-xl border border-white/10 shadow-2xl"
+        className="flex flex-col gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-zinc-900/60 backdrop-blur-xl border border-white/10 shadow-2xl"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -69,13 +69,13 @@ export const IntelligenceHub: React.FC<IntelligenceHubProps> = ({
         <div className="flex justify-between px-2 pt-2">
           <div className="flex flex-col items-center gap-1">
             <Hexagon className="w-4 h-4 text-emerald-400" />
-            <span className="text-2xl font-mono font-bold text-white">{analytics.totalBadges}</span>
+            <span className="text-xl sm:text-2xl font-mono font-bold text-white">{analytics.totalBadges}</span>
             <span className="text-xs text-zinc-500 uppercase tracking-widest">Badges</span>
           </div>
           <div className="w-px h-12 bg-white/5" />
           <div className="flex flex-col items-center gap-1">
             <Layers className="w-4 h-4 text-blue-400" />
-            <span className="text-2xl font-mono font-bold text-white">{analytics.totalTechnologies}</span>
+            <span className="text-xl sm:text-2xl font-mono font-bold text-white">{analytics.totalTechnologies}</span>
             <span className="text-xs text-zinc-500 uppercase tracking-widest">Tech</span>
           </div>
         </div>
