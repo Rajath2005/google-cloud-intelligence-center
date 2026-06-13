@@ -20,7 +20,7 @@ export const CloudIntelligenceMonolith: React.FC<CloudIntelligenceMonolithProps>
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
-    <div className="relative w-full h-[480px] lg:h-[800px] flex items-center justify-center lg:justify-end overflow-hidden rounded-3xl bg-[#09090b] border border-white/5">
+    <div className="relative w-full h-[540px] lg:h-[700px] flex items-center justify-center lg:justify-end overflow-hidden rounded-3xl bg-[#09090b] border border-white/5">
       
       {/* 
         Layer 1: The Foundation
