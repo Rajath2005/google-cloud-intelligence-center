@@ -31,7 +31,6 @@ export function GlassTransition() {
         <motion.div
           initial={{ opacity: 0, backdropFilter: 'blur(0px) saturate(100%)' }}
           animate="peak"
-          exit={{ opacity: 0, backdropFilter: 'blur(0px) saturate(100%)' }}
           variants={{
             peak: {
               opacity: 1,
