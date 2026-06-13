@@ -10,8 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "sync": "node scripts/sync-profile.mjs",
-    "generate-types": "wrangler types"
+    "sync": "node scripts/sync-profile.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.7",
@@ -37,8 +36,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "tailwindcss": "^4.3.0",
-    "three": "^0.184.0",
-    "wrangler": "^4.100.0"
+    "three": "^0.184.0"
   },
   "overrides": {
     "vite": "^7"
