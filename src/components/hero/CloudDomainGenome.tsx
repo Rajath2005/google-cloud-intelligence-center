@@ -37,7 +37,7 @@ export const CloudDomainGenome: React.FC<CloudDomainGenomeProps> = ({ breakdown,
 
   return (
     <motion.div 
-      className="flex flex-col gap-4 p-5 rounded-2xl bg-zinc-900/60 backdrop-blur-xl border border-white/10 shadow-2xl"
+      className="flex flex-col gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-zinc-900/60 backdrop-blur-xl border border-white/10 shadow-2xl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3 }}
@@ -63,7 +63,7 @@ export const CloudDomainGenome: React.FC<CloudDomainGenomeProps> = ({ breakdown,
       </div>
 
       {/* The Legend / Interactive Labels */}
-      <div className="grid grid-cols-2 gap-2 mt-2">
+      <div className="grid grid-cols-2 gap-1 sm:gap-2 mt-1 sm:mt-2">
         {segments.map((segment) => {
           const isActive = activeCategory === segment.id;
           return (
@@ -75,17 +75,17 @@ export const CloudDomainGenome: React.FC<CloudDomainGenomeProps> = ({ breakdown,
               )}
               onMouseEnter={() => onHover(segment.id)}
             >
-              <div className="flex items-center gap-2">
-                <div className={clsx("w-2 h-2 rounded-full", segment.config.color)} />
+              <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 pr-1">
+                <div className={clsx("w-2 h-2 rounded-full shrink-0", segment.config.color)} />
                 <span className={clsx(
-                  "text-sm font-medium transition-colors",
+                  "text-xs sm:text-sm font-medium transition-colors truncate",
                   isActive ? "text-white" : "text-zinc-300"
                 )}>
                   {segment.config.label}
                 </span>
               </div>
               <span className={clsx(
-                "text-xs font-mono",
+                "text-xs font-mono shrink-0 pl-1",
                 isActive ? "text-white" : "text-zinc-500"
               )}>
                 {segment.count}
