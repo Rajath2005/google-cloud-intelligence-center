@@ -182,9 +182,21 @@ const identityLinks = [
     btn.focus();
   }
 
-  btn.addEventListener('click', openMenu);
+  function toggleMenu() {
+    if (menu.hasAttribute('hidden')) {
+      openMenu();
+    } else {
+      closeMenu();
+    }
+  }
+
+  btn.addEventListener('click', toggleMenu);
   closeBtn.addEventListener('click', closeMenu);
   backdrop.addEventListener('click', closeMenu);
+
+  // Close menu when clicking a navigation link
+  const navLinks = document.querySelectorAll('.mobile-nav-link');
+  navLinks.forEach(link => link.addEventListener('click', closeMenu));
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && !menu.hasAttribute('hidden')) closeMenu();
