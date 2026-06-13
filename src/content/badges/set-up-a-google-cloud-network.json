@@ -1,0 +1,21 @@
+{
+  "id": "24078156",
+  "name": "Set Up a Google Cloud Network",
+  "description": "Earned Google Cloud skill badge: Set Up a Google Cloud Network",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/%2FxRncr1QAR2l%2FDyKKwn9AAUVjQ73IjUtwlm3BoCV1FU%3D",
+  "localImagePath": "/badges/24078156.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24078156",
+  "earnedDate": "2026-05-10",
+  "earnedDateRaw": "May 10, 2026 EDT",
+  "category": "security",
+  "technologies": [
+    "vpc"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "vpc"
+  ],
+  "relatedPaths": []
+}

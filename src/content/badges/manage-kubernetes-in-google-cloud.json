@@ -1,0 +1,21 @@
+{
+  "id": "24074245",
+  "name": "Manage Kubernetes in Google Cloud",
+  "description": "Earned Google Cloud skill badge: Manage Kubernetes in Google Cloud",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/kv48x9UK42Fqn4QPSyXlXjHwTf75c9YtMBQb2kbVJgc%3D",
+  "localImagePath": "/badges/24074245.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24074245",
+  "earnedDate": "2026-05-10",
+  "earnedDateRaw": "May 10, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "kubernetes-engine"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "kubernetes-engine"
+  ],
+  "relatedPaths": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "23581479",
+  "name": "Arcade Adventure: GKE Operations and Networking",
+  "description": "Earned Google Cloud skill badge: Arcade Adventure: GKE Operations and Networking",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/Xqt3O07j%2B0EJYTN2%2Bp7QIv114d9RGBcSBlYl0mfyHqM%3D",
+  "localImagePath": "/badges/23581479.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/23581479",
+  "earnedDate": "2026-04-13",
+  "earnedDateRaw": "Apr 13, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "kubernetes-engine"
+  ],
+  "difficulty": "intermediate",
+  "type": "quest",
+  "tags": [
+    "kubernetes-engine"
+  ],
+  "relatedPaths": []
+}

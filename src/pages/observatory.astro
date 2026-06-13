@@ -1,0 +1,449 @@
+---
+/**
+ * /observatory.astro — Activity observatory
+ * Monthly acquisition heatmap + growth timeline
+ * All data computed at build time from real badge earnedDates
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLD from '../components/seo/JsonLD.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { computeStats } from '../lib/analytics/computeStats';
+
+const badges = (await getCollection('badges')).map((e) => e.data);
+const categories = (await getCollection('categories')).map((e) => e.data);
+const technologies = (await getCollection('technologies')).map((e) => e.data);
+const stats = computeStats(badges, categories, technologies);
+
+const canonicalUrl = 'https://cloud.rajathkiran.me/observatory';
+
+const categoryColorMap: Record<string, string> = {
+  'ai-and-ml': '#4285f4',
+  'data-analytics': '#fbbc04',
+  'cloud-infrastructure': '#34a853',
+  'networking': '#ea4335',
+  'security': '#ff6d00',
+  'devops': '#00bcd4',
+  'application-development': '#ab47bc',
+};
+
+// Monthly acquisition sorted chronologically
+const monthlyEntries = Object.entries(stats.monthlyAcquisition)
+  .sort(([a], [b]) => a.localeCompare(b));
+
+const maxMonthly = Math.max(...monthlyEntries.map(([, v]) => v), 1);
+
+// Sort badges chronologically for timeline
+const timelineBadges = [...badges]
+  .filter((b) => b.earnedDate)
+  .sort((a, b) => (a.earnedDate! > b.earnedDate! ? -1 : 1));
+
+// Badge count running total for growth chart
+let runningTotal = 0;
+const growthData = monthlyEntries.map(([month, count]) => {
+  runningTotal += count;
+  return { month, count, total: runningTotal };
+});
+
+const datasetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Rajath Kiran — Google Cloud Learning Activity Observatory',
+  description: 'Monthly badge acquisition timeline and growth data for Rajath Kiran on Google Cloud Skills Boost.',
+  url: canonicalUrl,
+  creator: {
+    '@type': 'Person',
+    name: 'Rajath Kiran',
+    url: 'https://rajathkiran.me',
+  },
+};
+
+function formatMonth(yyyymm: string): string {
+  const [year, month] = yyyymm.split('-');
+  const date = new Date(parseInt(year), parseInt(month) - 1, 1);
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+---
+
+<BaseLayout
+  title="Observatory — Cloud Learning Activity | Rajath Kiran"
+  description={`Rajath Kiran's Google Cloud learning activity observatory. Monthly badge acquisition timeline, growth trends, and milestone tracking across ${badges.length} badges.`}
+  canonicalUrl={canonicalUrl}
+>
+  <Fragment slot="head">
+    <JsonLD schema={datasetSchema} />
+  </Fragment>
+
+  <div class="container-page obs-page">
+
+    <Breadcrumbs
+      items={[
+        { name: 'Home', href: '/' },
+        { name: 'Observatory' },
+      ]}
+    />
+
+    <header class="obs-header">
+      <h1 class="obs-title">Observatory</h1>
+      <p class="obs-subtitle">
+        Learning activity timeline and growth tracking.
+        {stats.firstBadgeDate && stats.latestBadgeDate && (
+          <>
+            {' '}Journey began{' '}
+            <strong class="obs-highlight">
+              {new Date(stats.firstBadgeDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+            </strong>.
+          </>
+        )}
+      </p>
+    </header>
+
+    <!-- Key metrics -->
+    <div class="obs-metrics" aria-label="Key metrics">
+      <div class="obs-metric surface-card">
+        <span class="obs-metric-val">{stats.totalBadges}</span>
+        <span class="obs-metric-label">Total Badges</span>
+      </div>
+      <div class="obs-metric surface-card">
+        <span class="obs-metric-val">{monthlyEntries.length}</span>
+        <span class="obs-metric-label">Active Months</span>
+      </div>
+      <div class="obs-metric surface-card">
+        <span class="obs-metric-val">
+          {monthlyEntries.length > 0
+            ? Math.round(stats.totalBadges / monthlyEntries.length * 10) / 10
+            : 0}
+        </span>
+        <span class="obs-metric-label">Badges / Month</span>
+      </div>
+      {stats.latestBadgeDate && (
+        <div class="obs-metric surface-card">
+          <span class="obs-metric-val obs-metric-val-sm">
+            {new Date(stats.latestBadgeDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+          </span>
+          <span class="obs-metric-label">Latest Badge</span>
+        </div>
+      )}
+    </div>
+
+    <!-- Monthly acquisition bar chart -->
+    {monthlyEntries.length > 0 ? (
+      <section class="obs-section" aria-labelledby="monthly-heading">
+        <h2 id="monthly-heading" class="obs-section-title">Monthly Badge Acquisition</h2>
+        <div class="monthly-chart" role="img" aria-label="Bar chart of monthly badge acquisition">
+          {monthlyEntries.map(([month, count]) => {
+            const heightPct = Math.round((count / maxMonthly) * 100);
+            return (
+              <div class="monthly-bar-wrap" title={`${formatMonth(month)}: ${count} badges`}>
+                <div class="monthly-bar-container">
+                  <span class="monthly-bar-label">{count}</span>
+                  <div
+                    class="monthly-bar-fill"
+                    style={`height: ${heightPct}%`}
+                    aria-hidden="true"
+                  ></div>
+                </div>
+                <span class="monthly-bar-month">{formatMonth(month).split(' ')[0]}</span>
+                <span class="monthly-bar-year">{month.split('-')[0]}</span>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    ) : (
+      <section class="obs-section" aria-labelledby="monthly-heading">
+        <h2 id="monthly-heading" class="obs-section-title">Monthly Badge Acquisition</h2>
+        <div class="obs-empty">
+          <p>No dated badges yet. Add earnedDate to badge JSON files to populate this chart.</p>
+        </div>
+      </section>
+    )}
+
+    <!-- Chronological badge timeline -->
+    {timelineBadges.length > 0 && (
+      <section class="obs-section" aria-labelledby="timeline-heading">
+        <h2 id="timeline-heading" class="obs-section-title">Badge Timeline</h2>
+        <div class="timeline">
+          {timelineBadges.map((badge, i) => {
+            const color = categoryColorMap[badge.category] ?? '#4285f4';
+            const cat = categories.find((c) => c.id === badge.category);
+            return (
+              <div class="timeline-item">
+                <div class="timeline-left">
+                  {badge.earnedDate && (
+                    <time class="timeline-date" datetime={badge.earnedDate}>
+                      {new Date(badge.earnedDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </time>
+                  )}
+                </div>
+                <div class="timeline-connector" aria-hidden="true">
+                  <div class="timeline-dot" style={`background: ${color}; border-color: ${color}40`}></div>
+                  {i < timelineBadges.length - 1 && (
+                    <div class="timeline-line"></div>
+                  )}
+                </div>
+                <a href={`/badge/${badge.id}`} class="timeline-card surface-card hover-lift">
+                  <div class="timeline-card-body">
+                    {cat && (
+                      <span class="timeline-category" style={`color: ${color}`}>{cat.shortName}</span>
+                    )}
+                    <h3 class="timeline-name">{badge.name}</h3>
+                    <span class={`badge-pill difficulty-${badge.difficulty}`}>
+                      {badge.difficulty}
+                    </span>
+                  </div>
+                </a>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>
+
+<style>
+  .obs-page {
+    padding-top: 32px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .obs-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 600px;
+  }
+
+  .obs-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .obs-subtitle {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .obs-highlight {
+    color: var(--color-accent);
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  /* Metrics */
+  .obs-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .obs-metric {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .obs-metric-val {
+    font-family: var(--font-mono);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .obs-metric-val-sm {
+    font-size: 22px;
+  }
+
+  .obs-metric-label {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
+  }
+
+  /* Section */
+  .obs-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .obs-section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* Monthly bar chart */
+  .monthly-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 200px;
+    padding: 0 8px 0;
+    overflow-x: auto;
+  }
+
+  .monthly-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    min-width: 44px;
+  }
+
+  .monthly-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 160px;
+    width: 100%;
+    gap: 4px;
+  }
+
+  .monthly-bar-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-text-tertiary);
+  }
+
+  .monthly-bar-fill {
+    width: 100%;
+    background: var(--color-accent);
+    border-radius: 3px 3px 0 0;
+    min-height: 4px;
+    transition: height 600ms var(--ease-spring);
+    opacity: 0.8;
+  }
+
+  .monthly-bar-month {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-text-tertiary);
+  }
+
+  .monthly-bar-year {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--color-text-tertiary);
+    opacity: 0.6;
+  }
+
+  /* Empty state */
+  .obs-empty {
+    padding: 40px;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-card);
+  }
+
+  .obs-empty p {
+    color: var(--color-text-secondary);
+    margin: 0;
+    font-size: 14px;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 120px 32px 1fr;
+    gap: 0 16px;
+    align-items: flex-start;
+  }
+
+  @media (max-width: 640px) {
+    .timeline-item {
+      grid-template-columns: 24px 1fr;
+    }
+    .timeline-left {
+      display: none;
+    }
+  }
+
+  .timeline-left {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 18px;
+  }
+
+  .timeline-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    white-space: nowrap;
+  }
+
+  .timeline-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid;
+    flex-shrink: 0;
+  }
+
+  .timeline-line {
+    width: 1px;
+    flex: 1;
+    min-height: 24px;
+    background: var(--color-border-subtle);
+  }
+
+  .timeline-card {
+    margin: 12px 0;
+    padding: 16px 20px;
+    text-decoration: none;
+    transition: border-color 200ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .timeline-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .timeline-category {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .timeline-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+</style>

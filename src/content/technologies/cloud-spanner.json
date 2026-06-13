@@ -1,0 +1,8 @@
+{
+  "id": "cloud-spanner",
+  "name": "Cloud Spanner",
+  "description": "Fully managed, mission-critical relational database with unlimited scale and 99.999% availability.",
+  "category": "data-analytics",
+  "gcpProductUrl": "https://cloud.google.com/spanner",
+  "relatedTechnologies": []
+}

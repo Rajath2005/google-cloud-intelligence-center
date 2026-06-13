@@ -1,0 +1,23 @@
+{
+  "id": "24822067",
+  "name": "Develop Serverless Applications on Cloud Run",
+  "description": "Earned Google Cloud skill badge: Develop Serverless Applications on Cloud Run",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/yNA4RgclBVGt13aVdxqlbEXb7SvfevzNOeYs92iS7Hw%3D",
+  "localImagePath": "/badges/24822067.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24822067",
+  "earnedDate": "2026-06-10",
+  "earnedDateRaw": "Jun 10, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "cloud-run",
+    "cloud-functions"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "cloud-run",
+    "cloud-functions"
+  ],
+  "relatedPaths": []
+}

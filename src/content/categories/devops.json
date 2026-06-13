@@ -1,0 +1,8 @@
+{
+  "id": "devops",
+  "name": "DevOps",
+  "description": "CI/CD pipelines, infrastructure as code, GitOps, and DevOps automation on Google Cloud.",
+  "icon": "GitBranch",
+  "colorToken": "--color-devops",
+  "shortName": "DevOps"
+}

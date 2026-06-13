@@ -1,0 +1,8 @@
+{
+  "id": "google-workspace",
+  "name": "Google Workspace",
+  "description": "Collaboration and productivity tools including Gmail, Drive, Docs, Sheets, and Meet.",
+  "category": "application-development",
+  "gcpProductUrl": "https://workspace.google.com",
+  "relatedTechnologies": []
+}

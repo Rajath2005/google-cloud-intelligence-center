@@ -1,0 +1,8 @@
+{
+  "id": "network-connectivity-center",
+  "name": "Network Connectivity Center",
+  "description": "Centralized hub-and-spoke architecture for connecting network resources.",
+  "category": "networking",
+  "gcpProductUrl": "https://cloud.google.com/network-connectivity/docs/network-connectivity-center",
+  "relatedTechnologies": []
+}

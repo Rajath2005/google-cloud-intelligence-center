@@ -1,0 +1,8 @@
+{
+  "id": "data-analytics",
+  "name": "Data Analytics",
+  "description": "Data warehousing, streaming analytics, business intelligence, and data governance on Google Cloud.",
+  "icon": "ChartBar",
+  "colorToken": "--color-data",
+  "shortName": "Analytics"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "cloud-infrastructure",
+  "name": "Cloud Infrastructure",
+  "description": "Compute, storage, serverless, containers, Kubernetes, and core cloud infrastructure services.",
+  "icon": "Cloud",
+  "colorToken": "--color-infra",
+  "shortName": "Infra"
+}

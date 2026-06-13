@@ -1,0 +1,8 @@
+{
+  "id": "cloud-storage",
+  "name": "Cloud Storage",
+  "description": "Object storage for companies of all sizes, serving data from edge to cloud.",
+  "category": "cloud-infrastructure",
+  "gcpProductUrl": "https://cloud.google.com/storage",
+  "relatedTechnologies": []
+}

@@ -1,0 +1,523 @@
+---
+/**
+ * /badge/[slug].astro
+ * Individual badge detail page.
+ *
+ * Schema: EducationalOccupationalCredential + BreadcrumbList
+ * SEO: keyword-first title, 155-char description, canonical
+ * Internal links: category page, technology pages, related badges
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JsonLD from '../../components/seo/JsonLD.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { ArrowSquareOut, Tag, Calendar, Flask, Certificate } from '@phosphor-icons/react';
+
+export async function getStaticPaths() {
+  const badges = await getCollection('badges');
+  return badges.map((entry) => ({
+    params: { slug: entry.data.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const badge = entry.data;
+
+// Fetch related data
+const allBadges = (await getCollection('badges')).map((e) => e.data);
+const allCategories = (await getCollection('categories')).map((e) => e.data);
+const allTechnologies = (await getCollection('technologies')).map((e) => e.data);
+
+const category = allCategories.find((c) => c.id === badge.category);
+const badgeTechnologies = allTechnologies.filter((t) => badge.technologies.includes(t.id));
+
+// Related badges: same category, same technologies — not this badge
+const relatedBadges = allBadges
+  .filter(
+    (b) =>
+      b.id !== badge.id &&
+      (b.category === badge.category || b.technologies.some((t) => badge.technologies.includes(t))),
+  )
+  .slice(0, 3);
+
+const canonicalUrl = `https://cloud.rajathkiran.me/badge/${entry.id}`;
+
+// Difficulty display map
+const difficultyLabel: Record<string, string> = {
+  introductory: 'Introductory',
+  intermediate: 'Intermediate',
+  advanced: 'Advanced',
+};
+
+// Type display map
+const typeLabel: Record<string, string> = {
+  skill_badge: 'Skill Badge',
+  course_completion: 'Course Completion',
+  quest: 'Quest',
+};
+
+// Category color map
+const categoryColorMap: Record<string, string> = {
+  'ai-and-ml': '#4285f4',
+  'data-analytics': '#fbbc04',
+  'cloud-infrastructure': '#34a853',
+  'networking': '#ea4335',
+  'security': '#ff6d00',
+  'devops': '#00bcd4',
+  'application-development': '#ab47bc',
+};
+const accentColor = categoryColorMap[badge.category] ?? '#4285f4';
+
+// JSON-LD: EducationalOccupationalCredential
+const credentialSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOccupationalCredential',
+  name: badge.name,
+  description: badge.description,
+  url: canonicalUrl,
+  credentialCategory: typeLabel[badge.type] ?? 'Badge',
+  recognizedBy: {
+    '@type': 'Organization',
+    name: 'Google Cloud',
+    url: 'https://cloud.google.com',
+  },
+  educationalLevel: difficultyLabel[badge.difficulty],
+  competencyRequired: badge.technologies,
+  ...(badge.earnedDate
+    ? {
+        dateCreated: badge.earnedDate,
+        holder: {
+          '@type': 'Person',
+          name: 'Rajath Kiran',
+          url: 'https://rajathkiran.me',
+        },
+      }
+    : {}),
+};
+---
+
+<BaseLayout
+  title={`${badge.name} — Google Cloud Skill Boost | Rajath Kiran`}
+  description={`${badge.name}: ${badge.description.slice(0, 120)}. Earned by Rajath Kiran on Google Cloud Skills Boost.`}
+  canonicalUrl={canonicalUrl}
+  ogType="article"
+>
+  <Fragment slot="head">
+    <JsonLD schema={credentialSchema} />
+  </Fragment>
+
+  <div class="container-page badge-page">
+
+    <Breadcrumbs
+      items={[
+        { name: 'Home', href: '/' },
+        { name: category?.name ?? 'Badges', href: category ? `/category/${category.id}` : '/badge' },
+        { name: badge.name },
+      ]}
+    />
+
+    <!-- Badge Header -->
+    <article class="badge-header" aria-labelledby="badge-title">
+      <div class="badge-hero" style={`--accent: ${accentColor}`}>
+
+        <!-- Left: Image + meta -->
+        <div class="badge-image-col">
+          <div class="badge-image-wrap">
+            <img
+              src={badge.badgeImageUrl}
+              alt={`${badge.name} badge`}
+              width="128"
+              height="128"
+              class="badge-image"
+              loading="eager"
+            />
+          </div>
+          <div class="badge-meta-pills">
+            <span class={`badge-pill difficulty-${badge.difficulty}`} aria-label={`Difficulty: ${badge.difficulty}`}>
+              {difficultyLabel[badge.difficulty]}
+            </span>
+            <span class="badge-pill" aria-label={`Type: ${typeLabel[badge.type]}`}>
+              {typeLabel[badge.type]}
+            </span>
+            {badge.labCount && (
+              <span class="badge-pill" aria-label={`${badge.labCount} labs`}>
+                <Flask size={11} weight="bold" aria-hidden />
+                {badge.labCount} labs
+              </span>
+            )}
+          </div>
+        </div>
+
+        <!-- Right: Title + description + meta -->
+        <div class="badge-content-col">
+          {category && (
+            <a href={`/category/${category.id}`} class="badge-category-link">
+              <span
+                class="badge-category-dot"
+                style={`background: ${accentColor}`}
+                aria-hidden="true"
+              ></span>
+              {category.name}
+            </a>
+          )}
+
+          <h1 id="badge-title" class="badge-title">{badge.name}</h1>
+          <p class="badge-description">{badge.description}</p>
+
+          <div class="badge-detail-row">
+            <div class="badge-detail-item">
+              <Certificate size={14} weight="bold" aria-hidden />
+              <span>Google Cloud Skills Boost</span>
+            </div>
+            {badge.earnedDate && (
+              <div class="badge-detail-item">
+                <Calendar size={14} weight="bold" aria-hidden />
+                <time datetime={badge.earnedDate}>
+                  Earned {new Date(badge.earnedDate).toLocaleDateString('en-US', {
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}
+                </time>
+              </div>
+            )}
+          </div>
+
+          <a
+            href={badge.badgeUrl}
+            class="btn-primary badge-cta"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View on Skills Boost
+            <ArrowSquareOut size={14} weight="bold" aria-hidden />
+          </a>
+        </div>
+
+      </div>
+    </article>
+
+    <!-- Technologies -->
+    {badgeTechnologies.length > 0 && (
+      <section class="badge-section" aria-labelledby="tech-heading">
+        <h2 id="tech-heading" class="badge-section-title">Technologies Covered</h2>
+        <div class="tech-chips">
+          {badgeTechnologies.map((tech) => (
+            <a href={`/technology/${tech.id}`} class="tech-chip hover-lift">
+              <span
+                class="tech-chip-dot"
+                style={`background: ${categoryColorMap[tech.category] ?? accentColor}`}
+                aria-hidden="true"
+              ></span>
+              {tech.name}
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Tags -->
+    {badge.tags.length > 0 && (
+      <section class="badge-section" aria-labelledby="tags-heading">
+        <h2 id="tags-heading" class="badge-section-title">
+          <Tag size={16} weight="bold" aria-hidden />
+          Tags
+        </h2>
+        <div class="tech-chips">
+          {badge.tags.map((tag) => (
+            <span class="tag-chip">{tag}</span>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Badges -->
+    {relatedBadges.length > 0 && (
+      <section class="badge-section" aria-labelledby="related-heading">
+        <h2 id="related-heading" class="badge-section-title">Related Badges</h2>
+        <div class="related-grid">
+          {relatedBadges.map((related) => {
+            const relatedColor = categoryColorMap[related.category] ?? '#4285f4';
+            return (
+              <a href={`/badge/${related.id}`} class="related-card surface-card hover-lift">
+                <div class="related-card-accent" style={`background: ${relatedColor}14`}></div>
+                <div class="related-card-body">
+                  <span class={`badge-pill difficulty-${related.difficulty}`}>
+                    {difficultyLabel[related.difficulty]}
+                  </span>
+                  <h3 class="related-card-title">{related.name}</h3>
+                  <p class="related-card-desc">{related.description.slice(0, 70)}…</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>
+
+<style>
+  .badge-page {
+    padding-top: 32px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  /* ─── Hero ─────────────────────────────────────────────────────────────── */
+  .badge-header {
+    margin-top: 16px;
+  }
+
+  .badge-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 36px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .badge-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .badge-hero {
+      grid-template-columns: 180px 1fr;
+      gap: 40px;
+    }
+  }
+
+  /* Image column */
+  .badge-image-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .badge-image-wrap {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--radius-card);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    overflow: hidden;
+  }
+
+  .badge-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .badge-meta-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* Content column */
+  .badge-content-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .badge-category-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 150ms ease;
+  }
+
+  .badge-category-link:hover {
+    color: var(--color-text-primary);
+  }
+
+  .badge-category-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .badge-title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .badge-description {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 64ch;
+  }
+
+  .badge-detail-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .badge-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  .badge-cta {
+    align-self: flex-start;
+    margin-top: 4px;
+  }
+
+  /* ─── Sections ──────────────────────────────────────────────────────────── */
+  .badge-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .badge-section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  /* ─── Technology chips ──────────────────────────────────────────────────── */
+  .tech-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .tech-chip:hover {
+    border-color: var(--color-accent);
+  }
+
+  .tech-chip-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .tag-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border-subtle);
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.06em;
+  }
+
+  /* ─── Related grid ──────────────────────────────────────────────────────── */
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  .related-card {
+    position: relative;
+    padding: 20px;
+    text-decoration: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 200ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .related-card-accent {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .related-card-body {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .related-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .related-card-desc {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>

@@ -1,0 +1,269 @@
+---
+/**
+ * /learning-path/[slug].astro — Learning Path page
+ * Schema: Course with hasCourseInstance
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JsonLD from '../../components/seo/JsonLD.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { ArrowSquareOut } from '@phosphor-icons/react';
+
+export async function getStaticPaths() {
+  const paths = await getCollection('learningPaths');
+  return paths.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const path = entry.data;
+
+const allBadges = (await getCollection('badges')).map((e) => e.data);
+const pathBadges = allBadges.filter((b) => path.badges.includes(b.id));
+
+const canonicalUrl = `https://cloud.rajathkiran.me/learning-path/${entry.id}`;
+
+const difficultyLabel: Record<string, string> = {
+  introductory: 'Introductory',
+  intermediate: 'Intermediate',
+  advanced: 'Advanced',
+};
+
+const categoryColorMap: Record<string, string> = {
+  'ai-and-ml': '#4285f4',
+  'data-analytics': '#fbbc04',
+  'cloud-infrastructure': '#34a853',
+  'networking': '#ea4335',
+  'security': '#ff6d00',
+  'devops': '#00bcd4',
+  'application-development': '#ab47bc',
+};
+
+const courseSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: path.name,
+  description: path.description,
+  url: canonicalUrl,
+  provider: {
+    '@type': 'Organization',
+    name: 'Google Cloud Skills Boost',
+    url: 'https://cloudskillsboost.google',
+  },
+  educationalLevel: difficultyLabel[path.difficulty],
+  ...(path.estimatedHours
+    ? { timeRequired: `PT${path.estimatedHours}H` }
+    : {}),
+};
+---
+
+<BaseLayout
+  title={`${path.name} — Google Cloud Learning Path | Rajath Kiran`}
+  description={`${path.name}: ${path.description.slice(0, 120)}. Google Cloud learning path on Skills Boost.`}
+  canonicalUrl={canonicalUrl}
+  ogType="article"
+>
+  <Fragment slot="head">
+    <JsonLD schema={courseSchema} />
+  </Fragment>
+
+  <div class="container-page path-page">
+
+    <Breadcrumbs
+      items={[
+        { name: 'Home', href: '/' },
+        { name: 'Learning Paths', href: '/badge' },
+        { name: path.name },
+      ]}
+    />
+
+    <header class="path-header">
+      <div class="path-header-pills">
+        <span class={`badge-pill difficulty-${path.difficulty}`}>
+          {difficultyLabel[path.difficulty]}
+        </span>
+        {path.estimatedHours && (
+          <span class="badge-pill">{path.estimatedHours}h estimated</span>
+        )}
+        <span class="badge-pill">{path.badges.length} badges</span>
+      </div>
+      <h1 class="path-title">{path.name}</h1>
+      <p class="path-desc">{path.description}</p>
+      {path.pathUrl && (
+        <a
+          href={path.pathUrl}
+          class="btn-primary path-cta"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View on Skills Boost
+          <ArrowSquareOut size={14} weight="bold" aria-hidden />
+        </a>
+      )}
+    </header>
+
+    {pathBadges.length > 0 && (
+      <section class="path-badges-section" aria-labelledby="path-badges-heading">
+        <h2 id="path-badges-heading" class="path-section-title">Badges in this Path</h2>
+        <div class="path-badge-list">
+          {pathBadges.map((badge, i) => {
+            const color = categoryColorMap[badge.category] ?? '#4285f4';
+            return (
+              <div class="path-badge-step">
+                <div class="path-step-number" aria-label={`Step ${i + 1}`}>{i + 1}</div>
+                <div class="path-step-line" aria-hidden="true"></div>
+                <a href={`/badge/${badge.id}`} class="path-badge-card surface-card hover-lift">
+                  <img
+                    src={badge.badgeImageUrl}
+                    alt={`${badge.name} badge`}
+                    width="48"
+                    height="48"
+                    loading="lazy"
+                    class="path-badge-img"
+                  />
+                  <div class="path-badge-body">
+                    <h3 class="path-badge-title">{badge.name}</h3>
+                    <span class={`badge-pill difficulty-${badge.difficulty}`}>
+                      {difficultyLabel[badge.difficulty]}
+                    </span>
+                  </div>
+                </a>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>
+
+<style>
+  .path-page {
+    padding-top: 32px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .path-header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 720px;
+  }
+
+  .path-header-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .path-title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .path-desc {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .path-cta {
+    align-self: flex-start;
+  }
+
+  .path-badges-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .path-section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .path-badge-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .path-badge-step {
+    display: grid;
+    grid-template-columns: 32px 2px 1fr;
+    gap: 0 16px;
+    align-items: flex-start;
+    padding-bottom: 16px;
+  }
+
+  .path-step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-accent);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .path-step-line {
+    width: 2px;
+    background: var(--color-border-subtle);
+    align-self: stretch;
+    margin-top: 16px;
+  }
+
+  .path-badge-step:last-child .path-step-line {
+    display: none;
+  }
+
+  .path-badge-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    text-decoration: none;
+    margin-bottom: 12px;
+    transition: border-color 200ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .path-badge-img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .path-badge-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .path-badge-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+</style>

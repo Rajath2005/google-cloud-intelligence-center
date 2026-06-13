@@ -1,0 +1,577 @@
+{
+  "generatedAt": "2026-06-13T08:11:24.868Z",
+  "avatar": {
+    "url": "https://lh3.googleusercontent.com/a/ACg8ocLRw_tJKXDE3jwiciD30qSNvpUmqpyjUvQx4WFOGxR_-dOiV_o=s320-c",
+    "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\profile\\avatar.jpg",
+    "publicPath": "/profile/avatar.jpg",
+    "sizeBytes": 193158,
+    "status": "cached"
+  },
+  "badges": [
+    {
+      "badgeId": "24854626",
+      "badgeName": "Build Infrastructure with Terraform on Google Cloud",
+      "url": "https://cdn.qwiklabs.com/V5hy7oPDiKov68Q4kTcuuA%2BMHNMX3Z0my4mncKPPGvY%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24854626.png",
+      "publicPath": "/badges/24854626.png",
+      "sizeBytes": 64719,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24851746",
+      "badgeName": "Optimize Costs for Google Kubernetes Engine",
+      "url": "https://cdn.qwiklabs.com/HericulAgqoO5iEbCxvzeXLJiX%2F4r9KeW3xrI9AKXHw%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24851746.png",
+      "publicPath": "/badges/24851746.png",
+      "sizeBytes": 62390,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24822584",
+      "badgeName": "Develop Serverless Apps with Firebase",
+      "url": "https://cdn.qwiklabs.com/O7gqYsPx7H7%2B9Ef%2B6pSk6gqAlzWIeDBHBx5EXfGziVU%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24822584.png",
+      "publicPath": "/badges/24822584.png",
+      "sizeBytes": 68722,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24822067",
+      "badgeName": "Develop Serverless Applications on Cloud Run",
+      "url": "https://cdn.qwiklabs.com/yNA4RgclBVGt13aVdxqlbEXb7SvfevzNOeYs92iS7Hw%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24822067.png",
+      "publicPath": "/badges/24822067.png",
+      "sizeBytes": 64823,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24821594",
+      "badgeName": "Implement Cloud Security Fundamentals on Google Cloud",
+      "url": "https://cdn.qwiklabs.com/xira2p%2F3wlj6940tZP0W54GdMCwP144nYckzIpKbajY%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24821594.png",
+      "publicPath": "/badges/24821594.png",
+      "sizeBytes": 60147,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24821028",
+      "badgeName": "Build a Data Warehouse with BigQuery",
+      "url": "https://cdn.qwiklabs.com/PUSiCmSF%2Bb3bUaIYgmjZAxsxo0ALtju8g3OMu9MR8Fw%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24821028.png",
+      "publicPath": "/badges/24821028.png",
+      "sizeBytes": 59647,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24812253",
+      "badgeName": "Monitor and Log with Google Cloud Observability",
+      "url": "https://cdn.qwiklabs.com/y%2BTesuIvsKnrFb3Xtfp47Cu%2Fx%2FoX1YEXD0y%2Fs%2BPNRak%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24812253.png",
+      "publicPath": "/badges/24812253.png",
+      "sizeBytes": 73597,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24324589",
+      "badgeName": "Build a Website on Google Cloud",
+      "url": "https://cdn.qwiklabs.com/vLbCm9dqTGstk0Ck0nY4zU8Z0ALwJpXi2i4OzMZAMxY%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24324589.png",
+      "publicPath": "/badges/24324589.png",
+      "sizeBytes": 68217,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24324064",
+      "badgeName": "Prepare Data for ML APIs on Google Cloud",
+      "url": "https://cdn.qwiklabs.com/7O4cDMQlvwMCsyn8h5sdo9gQ7Efv9m0n0%2Bg%2Bj523k0I%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24324064.png",
+      "publicPath": "/badges/24324064.png",
+      "sizeBytes": 66964,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24323497",
+      "badgeName": "Organize and Govern Data with Knowledge Catalog",
+      "url": "https://cdn.qwiklabs.com/s9Urq9GOUK3hvSrie1lkoYFStxVUrj1t8kJDhlzuVqM%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24323497.png",
+      "publicPath": "/badges/24323497.png",
+      "sizeBytes": 62200,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24322826",
+      "badgeName": "Monitor Environments with Google Cloud Managed Service for Prometheus",
+      "url": "https://cdn.qwiklabs.com/B3CQ6gLV%2FxruudoOFsfPB7HD23bEvuqs0UatrfBBLeA%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24322826.png",
+      "publicPath": "/badges/24322826.png",
+      "sizeBytes": 73921,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24322548",
+      "badgeName": "Connecting Cloud Networks with NCC",
+      "url": "https://cdn.qwiklabs.com/Y0Bg%2FY1trEfF5%2FwE6ByOpoQbSFoZzhKA4AzWbVuBFmY%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24322548.png",
+      "publicPath": "/badges/24322548.png",
+      "sizeBytes": 69805,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24303080",
+      "badgeName": "Implement Cloud Collaboration and Productivity Workflows",
+      "url": "https://cdn.qwiklabs.com/1hOfzEbKFu8crWO%2BKqhe3UhEmTSyjsS3KthogIcZMnk%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24303080.png",
+      "publicPath": "/badges/24303080.png",
+      "sizeBytes": 85077,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24302098",
+      "badgeName": "Implement CI/CD Pipelines on Google Cloud",
+      "url": "https://cdn.qwiklabs.com/y0ljecuLROGjvQ8c%2FF44IcE6K3QztUCKZM3rbXHl9ew%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24302098.png",
+      "publicPath": "/badges/24302098.png",
+      "sizeBytes": 64312,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24264993",
+      "badgeName": "Analyze Sentiment with Natural Language API",
+      "url": "https://cdn.qwiklabs.com/IwoV5yIJ1i3GJ%2BULEbrXtiv%2BhXE3wV9QFTLOd8R3DSo%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24264993.png",
+      "publicPath": "/badges/24264993.png",
+      "sizeBytes": 72945,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24221857",
+      "badgeName": "Create ML Models with BigQuery ML",
+      "url": "https://cdn.qwiklabs.com/N7YJ6ts7amzUsmbeFYSW4Pjxrbnf3%2BEp0GJ6Q9zRiHE%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24221857.png",
+      "publicPath": "/badges/24221857.png",
+      "sizeBytes": 65628,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24221646",
+      "badgeName": "Analyze Speech and Language with Google APIs",
+      "url": "https://cdn.qwiklabs.com/UqdvMapFoKWHIN%2BjDV596PzFC3RIs4y8rNIAx3zPxzs%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24221646.png",
+      "publicPath": "/badges/24221646.png",
+      "sizeBytes": 70439,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24221275",
+      "badgeName": "Streaming Analytics into BigQuery",
+      "url": "https://cdn.qwiklabs.com/U99MhyBHoka0AV8iYmkXoJFDBlAYXVhtfjmrdFhRsKw%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24221275.png",
+      "publicPath": "/badges/24221275.png",
+      "sizeBytes": 66480,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24187119",
+      "badgeName": "Store, Process, and Manage Data on Google Cloud - Console",
+      "url": "https://cdn.qwiklabs.com/%2FQCXEzViv64XY8tyFtMCHw7onppQaikKcCSnSEFbay0%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24187119.png",
+      "publicPath": "/badges/24187119.png",
+      "sizeBytes": 70687,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24186700",
+      "badgeName": "Perform Predictive Data Analysis in BigQuery",
+      "url": "https://cdn.qwiklabs.com/HEzAuQBpxv%2Fhl%2BZ5GYdhQbcMiSvHGTPo4olJ3oGCZ5c%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24186700.png",
+      "publicPath": "/badges/24186700.png",
+      "sizeBytes": 70660,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24186105",
+      "badgeName": "The Basics of Google Cloud Compute",
+      "url": "https://cdn.qwiklabs.com/9lB99Ij%2BMz%2FyOV0484V995beQHBMMCw0kimBFfZVtcM%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24186105.png",
+      "publicPath": "/badges/24186105.png",
+      "sizeBytes": 71400,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24185438",
+      "badgeName": "Use Machine Learning APIs on Google Cloud",
+      "url": "https://cdn.qwiklabs.com/GLfVO7bmeMcfYC8AI8NBW8gnMmpYHel4EFovC6enUio%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24185438.png",
+      "publicPath": "/badges/24185438.png",
+      "sizeBytes": 70026,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24185251",
+      "badgeName": "Use Functions, Formulas, and Charts in Google Sheets",
+      "url": "https://cdn.qwiklabs.com/0G14HiieShpIQWSv%2Fmz%2FHONOtEtCljUWKGMYyfEnsC4%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24185251.png",
+      "publicPath": "/badges/24185251.png",
+      "sizeBytes": 68403,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24185027",
+      "badgeName": "Use APIs to Work with Cloud Storage",
+      "url": "https://cdn.qwiklabs.com/IxQNo3BEvRrPJ7gHFoaeqNT6p9lYF3VojGrMuKzmV5Q%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24185027.png",
+      "publicPath": "/badges/24185027.png",
+      "sizeBytes": 70447,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24184874",
+      "badgeName": "Using the Google Cloud Speech API",
+      "url": "https://cdn.qwiklabs.com/sugwT79SbI2u2hS9K4Pxd%2FXn7aFbHvZhTPhy4LaCMQg%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24184874.png",
+      "publicPath": "/badges/24184874.png",
+      "sizeBytes": 69992,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24078156",
+      "badgeName": "Set Up a Google Cloud Network",
+      "url": "https://cdn.qwiklabs.com/%2FxRncr1QAR2l%2FDyKKwn9AAUVjQ73IjUtwlm3BoCV1FU%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24078156.png",
+      "publicPath": "/badges/24078156.png",
+      "sizeBytes": 67350,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24078029",
+      "badgeName": "Implement Cloud Storage and Data Protection Solutions",
+      "url": "https://cdn.qwiklabs.com/Wd86cQw9UwhtybfUCT3vGjex0P7VdpgWbmbkm%2FNIdO4%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24078029.png",
+      "publicPath": "/badges/24078029.png",
+      "sizeBytes": 66664,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24077877",
+      "badgeName": "Arcade Adventure: Modern App Deployment",
+      "url": "https://cdn.qwiklabs.com/W9saOrXeoBb9OcfBF9ifcv%2FV%2FeqOaQTbZkUmo8wcs38%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24077877.png",
+      "publicPath": "/badges/24077877.png",
+      "sizeBytes": 1239214,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24076090",
+      "badgeName": "Implement DevOps Workflows in Google Cloud",
+      "url": "https://cdn.qwiklabs.com/UW%2BzrwuKyhC3eO%2BN%2BytvfwyswbggIKlMDUKE5GDY6Hc%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24076090.png",
+      "publicPath": "/badges/24076090.png",
+      "sizeBytes": 65152,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24075000",
+      "badgeName": "Share Data Using Google Data Cloud",
+      "url": "https://cdn.qwiklabs.com/t8Eudux9kAj%2BngKmcxbc0QEX7UQ05HM9msixXv0vAi4%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24075000.png",
+      "publicPath": "/badges/24075000.png",
+      "sizeBytes": 67976,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24074525",
+      "badgeName": "Derive Insights from BigQuery Data",
+      "url": "https://cdn.qwiklabs.com/fRSh6wZemDI5n3Z0y8GNWh4fNLlHZTq4G5p2CCLly3c%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24074525.png",
+      "publicPath": "/badges/24074525.png",
+      "sizeBytes": 65276,
+      "status": "cached"
+    },
+    {
+      "badgeId": "24074245",
+      "badgeName": "Manage Kubernetes in Google Cloud",
+      "url": "https://cdn.qwiklabs.com/kv48x9UK42Fqn4QPSyXlXjHwTf75c9YtMBQb2kbVJgc%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\24074245.png",
+      "publicPath": "/badges/24074245.png",
+      "sizeBytes": 59411,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23970819",
+      "badgeName": "Deploy Kubernetes Applications on Google Cloud",
+      "url": "https://cdn.qwiklabs.com/XEaSHIu5cNECoi%2FM%2Fw30h9DDBXPP9Sdke8OQQPv3gNQ%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23970819.png",
+      "publicPath": "/badges/23970819.png",
+      "sizeBytes": 67751,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23877808",
+      "badgeName": "Create and Manage Cloud Spanner Instances",
+      "url": "https://cdn.qwiklabs.com/evdyXTK%2B7bFYY0CtRYIuU%2FNx4a0TW06vwiIjxVcKYMY%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23877808.png",
+      "publicPath": "/badges/23877808.png",
+      "sizeBytes": 64653,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23877478",
+      "badgeName": "Monitoring in Google Cloud",
+      "url": "https://cdn.qwiklabs.com/6b1HAqO0MPg%2F0awR9UdKAUgzrfl9qmnty1cjI2NcPNU%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23877478.png",
+      "publicPath": "/badges/23877478.png",
+      "sizeBytes": 63765,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23876508",
+      "badgeName": "Implementing Cloud Load Balancing for Compute Engine",
+      "url": "https://cdn.qwiklabs.com/65Pd0zpjzRHMv49XZZhvHJkbQK2xACKFY1ldTPWsJL8%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23876508.png",
+      "publicPath": "/badges/23876508.png",
+      "sizeBytes": 67203,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23875619",
+      "badgeName": "Set Up an App Dev Environment on Google Cloud",
+      "url": "https://cdn.qwiklabs.com/Je38dFSeXh1I3XpoWJYmQ7%2BRKX6ChB2GaGQweuw0kQI%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23875619.png",
+      "publicPath": "/badges/23875619.png",
+      "sizeBytes": 68335,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23581479",
+      "badgeName": "Arcade Adventure: GKE Operations and Networking",
+      "url": "https://cdn.qwiklabs.com/Xqt3O07j%2B0EJYTN2%2Bp7QIv114d9RGBcSBlYl0mfyHqM%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23581479.png",
+      "publicPath": "/badges/23581479.png",
+      "sizeBytes": 1215221,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23578555",
+      "badgeName": "Arcade Voyage: Modern Application Development",
+      "url": "https://cdn.qwiklabs.com/%2Bub%2FxM0IG82eclzeCw2ZCQeVZIFWDrDK59Hbkr1Gk9M%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23578555.png",
+      "publicPath": "/badges/23578555.png",
+      "sizeBytes": 1195479,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23349929",
+      "badgeName": "Arcade Adventure: Security, Data, and Cloud Operations",
+      "url": "https://cdn.qwiklabs.com/kUX3%2BYw%2F%2FWX%2FF7Gt0ZSwP1AJt0AqAqz5Mh4HxndnAuo%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23349929.png",
+      "publicPath": "/badges/23349929.png",
+      "sizeBytes": 1231954,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23053670",
+      "badgeName": "Arcade March 2026 Sprint 4",
+      "url": "https://cdn.qwiklabs.com/VwT%2B6YgyR2ehxprdIHHAM59LAhZONg2g3dtaPMxB4M4%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23053670.png",
+      "publicPath": "/badges/23053670.png",
+      "sizeBytes": 712828,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23053264",
+      "badgeName": "Arcade March 2026 Sprint 3",
+      "url": "https://cdn.qwiklabs.com/Yqg9vzg5Pa9%2FDf2feM%2BGZ8pgUNoPnp2gKooeuOxCi5E%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23053264.png",
+      "publicPath": "/badges/23053264.png",
+      "sizeBytes": 734811,
+      "status": "cached"
+    },
+    {
+      "badgeId": "23053004",
+      "badgeName": "Arcade March 2026 Sprint 2",
+      "url": "https://cdn.qwiklabs.com/qVef9aFjLaIc3DC6zdffuk8CiHj8d%2BMPywH41hXnJlM%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\23053004.png",
+      "publicPath": "/badges/23053004.png",
+      "sizeBytes": 738521,
+      "status": "cached"
+    },
+    {
+      "badgeId": "22908675",
+      "badgeName": "Holi-istic Infrastructures",
+      "url": "https://cdn.qwiklabs.com/YL%2FXwmtZYUdONk0F2TOKnEjSPFyHaQASjhNNFM5AZaQ%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\22908675.png",
+      "publicPath": "/badges/22908675.png",
+      "sizeBytes": 985413,
+      "status": "cached"
+    },
+    {
+      "badgeId": "22903848",
+      "badgeName": "Arcade March 2026 Sprint 1",
+      "url": "https://cdn.qwiklabs.com/Um6GrGIh0o12UBnS7YNa0a3XjrZw6mnCLqgQdNNPf6Y%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\22903848.png",
+      "publicPath": "/badges/22903848.png",
+      "sizeBytes": 742980,
+      "status": "cached"
+    },
+    {
+      "badgeId": "22542707",
+      "badgeName": "Skills At The Pitch",
+      "url": "https://cdn.qwiklabs.com/fWPypa%2FxJQ7EmeFb8JY6uODx27gudfX1ZQ3Tj%2F3X9DY%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\22542707.png",
+      "publicPath": "/badges/22542707.png",
+      "sizeBytes": 992810,
+      "status": "cached"
+    },
+    {
+      "badgeId": "22507321",
+      "badgeName": "Arcade February 2026 Sprint 4",
+      "url": "https://cdn.qwiklabs.com/xoB71CnytOlhFNsIoQpj7oiQwDA8ZZO7dr077s3FWIg%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\22507321.png",
+      "publicPath": "/badges/22507321.png",
+      "sizeBytes": 713195,
+      "status": "cached"
+    },
+    {
+      "badgeId": "22484535",
+      "badgeName": "Arcade February 2026 Sprint 3",
+      "url": "https://cdn.qwiklabs.com/EfroK%2BdhxRpGgXxEFeCboNsb4KZWLQ8ep%2FjLg7al8Kc%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\22484535.png",
+      "publicPath": "/badges/22484535.png",
+      "sizeBytes": 733197,
+      "status": "cached"
+    },
+    {
+      "badgeId": "22484261",
+      "badgeName": "Arcade February 2026 Sprint 2",
+      "url": "https://cdn.qwiklabs.com/GAGCON6jmj7GTy3czln75XzAhuRqW4Y5ObkCbDiFcLc%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\22484261.png",
+      "publicPath": "/badges/22484261.png",
+      "sizeBytes": 737873,
+      "status": "cached"
+    },
+    {
+      "badgeId": "22347717",
+      "badgeName": "Arcade February 2026 Sprint 1",
+      "url": "https://cdn.qwiklabs.com/N51vf1M8p2WAXSQ%2FcftnEObWuFU33Jc3E%2FwhmlYEhEo%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\22347717.png",
+      "publicPath": "/badges/22347717.png",
+      "sizeBytes": 742367,
+      "status": "cached"
+    },
+    {
+      "badgeId": "22312326",
+      "badgeName": "From Foundations To Wonders",
+      "url": "https://cdn.qwiklabs.com/egXdmWNKvdZdUli9JWSNPen0vnMsUYEgu2njo%2BcvSVE%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\22312326.png",
+      "publicPath": "/badges/22312326.png",
+      "sizeBytes": 959371,
+      "status": "cached"
+    },
+    {
+      "badgeId": "21898624",
+      "badgeName": "Level 2: Event-Driven Systems",
+      "url": "https://cdn.qwiklabs.com/24PZYrEjWJ83X1Y41w259nTpeBulffMQVVDtukri7g0%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\21898624.png",
+      "publicPath": "/badges/21898624.png",
+      "sizeBytes": 1173790,
+      "status": "cached"
+    },
+    {
+      "badgeId": "21842059",
+      "badgeName": "Level 1: Compute, Storage and Monitoring",
+      "url": "https://cdn.qwiklabs.com/s2Z%2FNVvCyvqdC7YjLTIWb1hG4x%2BQ7NzrqC7x5g2gXU0%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\21842059.png",
+      "publicPath": "/badges/21842059.png",
+      "sizeBytes": 1174902,
+      "status": "cached"
+    },
+    {
+      "badgeId": "21691579",
+      "badgeName": "Level 3: Applied Generative AI",
+      "url": "https://cdn.qwiklabs.com/jYebaq0KueqOtV%2Fuo4ZzfGU8wviSChvJf3FFBVd5RSE%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\21691579.png",
+      "publicPath": "/badges/21691579.png",
+      "sizeBytes": 1173712,
+      "status": "cached"
+    },
+    {
+      "badgeId": "21673466",
+      "badgeName": "Google Skills Arcade Base Camp January 2026",
+      "url": "https://cdn.qwiklabs.com/OKcbA2pNhCWnn17RacVRb%2BPwqGGyKHQs%2B5DDKpPiyHE%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\21673466.png",
+      "publicPath": "/badges/21673466.png",
+      "sizeBytes": 905576,
+      "status": "cached"
+    },
+    {
+      "badgeId": "21673213",
+      "badgeName": "Google Skills Arcade Certification Zone January 2026",
+      "url": "https://cdn.qwiklabs.com/VTvlfPXpDraf6pIzUZz2IK%2FRjsmKKtqAkEGFkb4QWIU%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\21673213.png",
+      "publicPath": "/badges/21673213.png",
+      "sizeBytes": 1167754,
+      "status": "cached"
+    },
+    {
+      "badgeId": "21619221",
+      "badgeName": "Google Skills Arcade Trivia January 2026 Week 4",
+      "url": "https://cdn.qwiklabs.com/cMYTpo1BSL8YRRBUn1QkY8TgL2rehGS6wTCWHnciurM%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\21619221.png",
+      "publicPath": "/badges/21619221.png",
+      "sizeBytes": 1167347,
+      "status": "cached"
+    },
+    {
+      "badgeId": "21617267",
+      "badgeName": "Google Skills Arcade Trivia January 2026 Week 3",
+      "url": "https://cdn.qwiklabs.com/JyDrLJUtV80PNWj9zonAayaa%2BXS3ANokYL%2FwcLP3U1s%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\21617267.png",
+      "publicPath": "/badges/21617267.png",
+      "sizeBytes": 1168078,
+      "status": "cached"
+    },
+    {
+      "badgeId": "21522769",
+      "badgeName": "Google Skills Arcade Trivia January 2026 Week 2",
+      "url": "https://cdn.qwiklabs.com/erhiNzYTyTu8DMXe9Qdqw0wjrwVbtTpD9WaRtgoF0tY%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\21522769.png",
+      "publicPath": "/badges/21522769.png",
+      "sizeBytes": 1166880,
+      "status": "cached"
+    },
+    {
+      "badgeId": "21521486",
+      "badgeName": "Google Skills Arcade Trivia January 2026 Week 1",
+      "url": "https://cdn.qwiklabs.com/OKs5G92MGsypQteta56%2FA%2FOT1MDhKfnvjSd7qJTCDKo%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\21521486.png",
+      "publicPath": "/badges/21521486.png",
+      "sizeBytes": 1167536,
+      "status": "cached"
+    },
+    {
+      "badgeId": "21509664",
+      "badgeName": "Work Life Refresh",
+      "url": "https://cdn.qwiklabs.com/37vwyGD%2FB8DexMzP5NwwoN8z6PxbEFbKkdetz2aEZNw%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\21509664.png",
+      "publicPath": "/badges/21509664.png",
+      "sizeBytes": 1264902,
+      "status": "cached"
+    },
+    {
+      "badgeId": "20439172",
+      "badgeName": "Introduction to Generative AI",
+      "url": "https://cdn.qwiklabs.com/1IjA1paFzxAwvhaEuCNYzcrZkNyM%2FRWnfSQue%2BwKv3M%3D",
+      "localPath": "D:\\DevWorkspace\\AntiGravity\\Cloud\\growing-group\\public\\badges\\20439172.png",
+      "publicPath": "/badges/20439172.png",
+      "sizeBytes": 77879,
+      "status": "cached"
+    }
+  ],
+  "summary": {
+    "totalBadgeImages": 62,
+    "downloaded": 0,
+    "cached": 62,
+    "failed": 0,
+    "coveragePercent": 100
+  }
+}

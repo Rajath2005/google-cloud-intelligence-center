@@ -1,0 +1,129 @@
+---
+/**
+ * SiteFooter.astro
+ * Minimal footer. Identity links present (not hidden).
+ * No version numbers, no section-numbering eyebrows.
+ */
+
+const identityLinks = [
+  { href: 'https://rajathkiran.me', label: 'Portfolio' },
+  { href: 'https://github.com/Rajath2005', label: 'GitHub' },
+  { href: 'http://linkedin.com/in/rajath-kiran/', label: 'LinkedIn' },
+  { href: 'https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0', label: 'Google Skills' },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="site-footer" role="contentinfo">
+  <div class="container-page footer-inner">
+
+    <div class="footer-brand">
+      <a href="/" class="footer-logo" aria-label="Cloud Intelligence Center">
+        <span class="footer-logo-text">Cloud Intelligence Center</span>
+      </a>
+      <p class="footer-tagline">The complete public record of Rajath Kiran's Google Cloud journey.</p>
+    </div>
+
+    <nav class="footer-identity" aria-label="External profiles">
+      {identityLinks.map((link) => (
+        <a
+          href={link.href}
+          class="footer-link"
+          target="_blank"
+          rel="noopener noreferrer me"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <p class="footer-copy">
+      &copy; {currentYear} Rajath Kiran &middot; Built with
+      <a href="https://astro.build" class="footer-link-inline" target="_blank" rel="noopener noreferrer">Astro</a>
+    </p>
+
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: 96px;
+    border-top: 1px solid var(--color-border-subtle);
+    padding: 48px 0 32px;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  @media (min-width: 768px) {
+    .footer-inner {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-logo {
+    text-decoration: none;
+  }
+
+  .footer-logo-text {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-tagline {
+    font-size: 13px;
+    color: var(--color-text-tertiary);
+    margin: 0;
+    max-width: 300px;
+  }
+
+  .footer-identity {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    align-items: center;
+  }
+
+  .footer-link {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .footer-link:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .footer-link-inline {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .footer-link-inline:hover {
+    color: var(--color-accent);
+  }
+</style>

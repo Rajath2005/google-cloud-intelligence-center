@@ -1,0 +1,8 @@
+{
+  "id": "bigquery-ml",
+  "name": "BigQuery ML",
+  "description": "Create and execute ML models in BigQuery using SQL queries.",
+  "category": "ai-and-ml",
+  "gcpProductUrl": "https://cloud.google.com/bigquery/docs/bqml-introduction",
+  "relatedTechnologies": []
+}

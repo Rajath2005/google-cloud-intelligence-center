@@ -1,0 +1,21 @@
+{
+  "id": "24821028",
+  "name": "Build a Data Warehouse with BigQuery",
+  "description": "Earned Google Cloud skill badge: Build a Data Warehouse with BigQuery",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/PUSiCmSF%2Bb3bUaIYgmjZAxsxo0ALtju8g3OMu9MR8Fw%3D",
+  "localImagePath": "/badges/24821028.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24821028",
+  "earnedDate": "2026-06-10",
+  "earnedDateRaw": "Jun 10, 2026 EDT",
+  "category": "data-analytics",
+  "technologies": [
+    "bigquery"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "bigquery"
+  ],
+  "relatedPaths": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "24074525",
+  "name": "Derive Insights from BigQuery Data",
+  "description": "Earned Google Cloud skill badge: Derive Insights from BigQuery Data",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/fRSh6wZemDI5n3Z0y8GNWh4fNLlHZTq4G5p2CCLly3c%3D",
+  "localImagePath": "/badges/24074525.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24074525",
+  "earnedDate": "2026-05-10",
+  "earnedDateRaw": "May 10, 2026 EDT",
+  "category": "data-analytics",
+  "technologies": [
+    "bigquery"
+  ],
+  "difficulty": "introductory",
+  "type": "skill_badge",
+  "tags": [
+    "bigquery"
+  ],
+  "relatedPaths": []
+}

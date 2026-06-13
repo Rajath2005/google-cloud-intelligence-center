@@ -1,0 +1,21 @@
+{
+  "id": "24812253",
+  "name": "Monitor and Log with Google Cloud Observability",
+  "description": "Earned Google Cloud skill badge: Monitor and Log with Google Cloud Observability",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/y%2BTesuIvsKnrFb3Xtfp47Cu%2Fx%2FoX1YEXD0y%2Fs%2BPNRak%3D",
+  "localImagePath": "/badges/24812253.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24812253",
+  "earnedDate": "2026-06-10",
+  "earnedDateRaw": "Jun 10, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "cloud-monitoring"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "cloud-monitoring"
+  ],
+  "relatedPaths": []
+}

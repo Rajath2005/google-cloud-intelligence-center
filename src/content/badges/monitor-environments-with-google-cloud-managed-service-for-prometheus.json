@@ -1,0 +1,21 @@
+{
+  "id": "24322826",
+  "name": "Monitor Environments with Google Cloud Managed Service for Prometheus",
+  "description": "Earned Google Cloud skill badge: Monitor Environments with Google Cloud Managed Service for Prometheus",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/B3CQ6gLV%2FxruudoOFsfPB7HD23bEvuqs0UatrfBBLeA%3D",
+  "localImagePath": "/badges/24322826.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24322826",
+  "earnedDate": "2026-05-21",
+  "earnedDateRaw": "May 21, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "cloud-monitoring"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "cloud-monitoring"
+  ],
+  "relatedPaths": []
+}

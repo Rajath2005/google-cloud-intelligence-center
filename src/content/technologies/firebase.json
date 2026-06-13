@@ -1,0 +1,8 @@
+{
+  "id": "firebase",
+  "name": "Firebase",
+  "description": "Google's platform for building mobile and web applications with real-time database, auth, and hosting.",
+  "category": "application-development",
+  "gcpProductUrl": "https://firebase.google.com",
+  "relatedTechnologies": []
+}

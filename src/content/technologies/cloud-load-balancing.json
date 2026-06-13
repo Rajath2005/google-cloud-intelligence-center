@@ -1,0 +1,8 @@
+{
+  "id": "cloud-load-balancing",
+  "name": "Cloud Load Balancing",
+  "description": "High-performance, scalable load balancing for Google Cloud.",
+  "category": "networking",
+  "gcpProductUrl": "https://cloud.google.com/load-balancing",
+  "relatedTechnologies": []
+}

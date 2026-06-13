@@ -1,0 +1,21 @@
+{
+  "id": "24184874",
+  "name": "Using the Google Cloud Speech API",
+  "description": "Earned Google Cloud skill badge: Using the Google Cloud Speech API",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/sugwT79SbI2u2hS9K4Pxd%2FXn7aFbHvZhTPhy4LaCMQg%3D",
+  "localImagePath": "/badges/24184874.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24184874",
+  "earnedDate": "2026-05-15",
+  "earnedDateRaw": "May 15, 2026 EDT",
+  "category": "ai-and-ml",
+  "technologies": [
+    "cloud-speech-api"
+  ],
+  "difficulty": "introductory",
+  "type": "skill_badge",
+  "tags": [
+    "cloud-speech-api"
+  ],
+  "relatedPaths": []
+}

@@ -1,0 +1,8 @@
+{
+  "id": "cloud-build",
+  "name": "Cloud Build",
+  "description": "Serverless CI/CD platform for building, testing, and deploying on Google Cloud.",
+  "category": "devops",
+  "gcpProductUrl": "https://cloud.google.com/build",
+  "relatedTechnologies": []
+}

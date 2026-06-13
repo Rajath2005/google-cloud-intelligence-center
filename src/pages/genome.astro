@@ -1,0 +1,509 @@
+---
+/**
+ * /genome.astro — Cloud Genome visualization
+ * Radar/coverage view of all 7 cloud domains.
+ * Schema: WebPage + Dataset
+ * All scores computed from real badge data. No fabrication.
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLD from '../components/seo/JsonLD.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { computeStats } from '../lib/analytics/computeStats';
+
+const badges = (await getCollection('badges')).map((e) => e.data);
+const categories = (await getCollection('categories')).map((e) => e.data);
+const technologies = (await getCollection('technologies')).map((e) => e.data);
+const stats = computeStats(badges, categories, technologies);
+
+const canonicalUrl = 'https://cloud.rajathkiran.me/genome';
+
+const categoryColorMap: Record<string, string> = {
+  'ai-and-ml': '#4285f4',
+  'data-analytics': '#fbbc04',
+  'cloud-infrastructure': '#34a853',
+  'networking': '#ea4335',
+  'security': '#ff6d00',
+  'devops': '#00bcd4',
+  'application-development': '#ab47bc',
+};
+
+// Sort categories by badge count descending
+const sortedCategories = [...categories].sort(
+  (a, b) => (stats.categoryBreakdown[b.id] ?? 0) - (stats.categoryBreakdown[a.id] ?? 0),
+);
+
+const datasetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Rajath Kiran — Google Cloud Genome',
+  description: 'Coverage scores across 7 Google Cloud domains computed from earned skill badges.',
+  url: canonicalUrl,
+  creator: {
+    '@type': 'Person',
+    name: 'Rajath Kiran',
+    url: 'https://rajathkiran.me',
+  },
+};
+---
+
+<BaseLayout
+  title="Cloud Genome — Google Cloud Domain Coverage | Rajath Kiran"
+  description={`Rajath Kiran's Google Cloud genome: coverage scores across ${categories.length} cloud domains including AI & ML, data analytics, infrastructure, and more. Computed from ${badges.length} earned badges.`}
+  canonicalUrl={canonicalUrl}
+>
+  <Fragment slot="head">
+    <JsonLD schema={datasetSchema} />
+  </Fragment>
+
+  <div class="container-page genome-page">
+
+    <Breadcrumbs
+      items={[
+        { name: 'Home', href: '/' },
+        { name: 'Cloud Genome' },
+      ]}
+    />
+
+    <header class="genome-header">
+      <h1 class="genome-title">Cloud Genome</h1>
+      <p class="genome-subtitle">
+        Coverage across {categories.length} Google Cloud domains. Scores computed from{' '}
+        {badges.length} earned badges. No score is generated without data.
+      </p>
+      {stats.lastUpdated && (
+        <p class="genome-updated">
+          Last computed:{' '}
+          <time datetime={stats.lastUpdated} class="genome-updated-time">
+            {new Date(stats.lastUpdated).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+          </time>
+        </p>
+      )}
+    </header>
+
+    <!-- Genome domain cards — primary view -->
+    <section aria-labelledby="genome-domains-heading">
+      <h2 id="genome-domains-heading" class="sr-only">Domain Coverage Breakdown</h2>
+      <div class="genome-domain-grid">
+        {sortedCategories.map((cat) => {
+          const count = stats.categoryBreakdown[cat.id] ?? 0;
+          const score = stats.genomeScores[cat.id] ?? 0;
+          const color = categoryColorMap[cat.id] ?? '#4285f4';
+          const topTechs = technologies
+            .filter((t) => t.category === cat.id)
+            .slice(0, 3);
+
+          return (
+            <a
+              href={`/category/${cat.id}`}
+              class="genome-domain-card surface-card hover-lift"
+              aria-label={`${cat.name}: ${count} badges, ${score}% coverage`}
+            >
+              <div class="gdc-top">
+                <div class="gdc-color-bar" style={`background: ${color}`} aria-hidden="true"></div>
+                <div class="gdc-header">
+                  <h3 class="gdc-name">{cat.name}</h3>
+                  <div class="gdc-score-wrap">
+                    <span class="gdc-score" style={`color: ${color}`}>{score}</span>
+                    <span class="gdc-score-unit">%</span>
+                  </div>
+                </div>
+                <p class="gdc-desc">{cat.description.slice(0, 90)}…</p>
+              </div>
+
+              <div class="gdc-bottom">
+                <div class="gdc-bar-track" role="progressbar" aria-valuenow={score} aria-valuemin={0} aria-valuemax={100} aria-label={`${score}% coverage`}>
+                  <div class="gdc-bar-fill" style={`width: ${score}%; background: ${color}`}></div>
+                </div>
+
+                <div class="gdc-meta">
+                  <span class="gdc-badge-count">
+                    <strong>{count}</strong> {count === 1 ? 'badge' : 'badges'}
+                  </span>
+                  {topTechs.length > 0 && (
+                    <div class="gdc-techs" aria-label="Top technologies">
+                      {topTechs.map((t) => (
+                        <span class="gdc-tech-chip">{t.name}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {count === 0 && (
+                <div class="gdc-empty-notice" aria-label="No badges yet in this domain">
+                  No badges yet
+                </div>
+              )}
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Difficulty breakdown -->
+    <section class="genome-breakdown-section" aria-labelledby="diff-heading">
+      <h2 id="diff-heading" class="genome-section-title">Difficulty Distribution</h2>
+      <div class="genome-breakdown-grid">
+        {['introductory', 'intermediate', 'advanced'].map((level) => {
+          const count = stats.difficultyBreakdown[level] ?? 0;
+          const pct = stats.totalBadges > 0 ? Math.round((count / stats.totalBadges) * 100) : 0;
+          const levelColors = {
+            introductory: '#34a853',
+            intermediate: '#fbbc04',
+            advanced: '#ea4335',
+          };
+          const color = levelColors[level] ?? '#4285f4';
+          return (
+            <div class="breakdown-card surface-card">
+              <div class="breakdown-label" style={`color: ${color}`}>
+                {level.charAt(0).toUpperCase() + level.slice(1)}
+              </div>
+              <div class="breakdown-count">{count}</div>
+              <div class="breakdown-bar-track">
+                <div class="breakdown-bar-fill" style={`width: ${pct}%; background: ${color}`}></div>
+              </div>
+              <div class="breakdown-pct">{pct}%</div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- Top technologies -->
+    {stats.topTechnologies.length > 0 && (
+      <section class="genome-breakdown-section" aria-labelledby="top-tech-heading">
+        <h2 id="top-tech-heading" class="genome-section-title">Most Applied Technologies</h2>
+        <div class="top-tech-list">
+          {stats.topTechnologies.map((tech, i) => {
+            const techObj = technologies.find((t) => t.id === tech.id);
+            const color = techObj ? (categoryColorMap[techObj.category] ?? '#4285f4') : '#4285f4';
+            const maxCount = stats.topTechnologies[0]?.count ?? 1;
+            const barPct = Math.round((tech.count / maxCount) * 100);
+            return (
+              <a href={`/technology/${tech.id}`} class="top-tech-row">
+                <span class="top-tech-rank">{i + 1}</span>
+                <span class="top-tech-name">{tech.name}</span>
+                <div class="top-tech-bar-track">
+                  <div class="top-tech-bar-fill" style={`width: ${barPct}%; background: ${color}`}></div>
+                </div>
+                <span class="top-tech-count" style={`color: ${color}`}>{tech.count}</span>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>
+
+<style>
+  .genome-page {
+    padding-top: 32px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .genome-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 600px;
+  }
+
+  .genome-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .genome-subtitle {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .genome-updated {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  .genome-updated-time {
+    color: var(--color-text-secondary);
+  }
+
+  /* Domain grid */
+  .genome-domain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .genome-domain-card {
+    padding: 0;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-color 200ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .gdc-top {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+  }
+
+  .gdc-color-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+  }
+
+  .gdc-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 8px;
+  }
+
+  .gdc-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .gdc-score-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
+    flex-shrink: 0;
+  }
+
+  .gdc-score {
+    font-family: var(--font-mono);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .gdc-score-unit {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--color-text-tertiary);
+  }
+
+  .gdc-desc {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .gdc-bottom {
+    padding: 16px 24px 20px;
+    border-top: 1px solid var(--color-border-subtle);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: auto;
+  }
+
+  .gdc-bar-track {
+    height: 4px;
+    background: var(--color-border);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+  }
+
+  .gdc-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-pill);
+    transition: width 800ms var(--ease-spring);
+  }
+
+  .gdc-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .gdc-badge-count {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  .gdc-badge-count strong {
+    color: var(--color-text-primary);
+  }
+
+  .gdc-techs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .gdc-tech-chip {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-raised);
+    color: var(--color-text-tertiary);
+    border: 1px solid var(--color-border-subtle);
+  }
+
+  .gdc-empty-notice {
+    padding: 12px 24px;
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    font-family: var(--font-mono);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  /* Breakdown */
+  .genome-section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 24px;
+    letter-spacing: -0.01em;
+  }
+
+  .genome-breakdown-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .genome-breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .breakdown-card {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .breakdown-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .breakdown-count {
+    font-family: var(--font-mono);
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1;
+  }
+
+  .breakdown-bar-track {
+    height: 3px;
+    background: var(--color-border);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+  }
+
+  .breakdown-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-pill);
+  }
+
+  .breakdown-pct {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Top tech list */
+  .top-tech-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .top-tech-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 1fr 40px;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background 150ms ease;
+  }
+
+  .top-tech-row:hover {
+    background: var(--color-surface);
+  }
+
+  .top-tech-rank {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    text-align: right;
+  }
+
+  .top-tech-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+
+  .top-tech-bar-track {
+    height: 4px;
+    background: var(--color-border);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+  }
+
+  .top-tech-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-pill);
+  }
+
+  .top-tech-count {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

@@ -1,0 +1,8 @@
+{
+  "id": "ai-and-ml",
+  "name": "AI & Machine Learning",
+  "description": "Artificial intelligence, machine learning, generative AI, large language models, and AI infrastructure on Google Cloud.",
+  "icon": "Brain",
+  "colorToken": "--color-ai-ml",
+  "shortName": "AI & ML"
+}

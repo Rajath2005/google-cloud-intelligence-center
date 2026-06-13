@@ -1,0 +1,21 @@
+{
+  "id": "24076090",
+  "name": "Implement DevOps Workflows in Google Cloud",
+  "description": "Earned Google Cloud skill badge: Implement DevOps Workflows in Google Cloud",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/UW%2BzrwuKyhC3eO%2BN%2BytvfwyswbggIKlMDUKE5GDY6Hc%3D",
+  "localImagePath": "/badges/24076090.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24076090",
+  "earnedDate": "2026-05-10",
+  "earnedDateRaw": "May 10, 2026 EDT",
+  "category": "devops",
+  "technologies": [
+    "cloud-build"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "cloud-build"
+  ],
+  "relatedPaths": []
+}

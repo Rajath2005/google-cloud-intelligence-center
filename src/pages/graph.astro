@@ -1,0 +1,529 @@
+---
+/**
+ * /graph.astro — Knowledge Graph page
+ * Static data table view for Phase 1.
+ * Phase 3: replaced with D3 force-graph island (client:visible).
+ * Schema: Dataset
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLD from '../components/seo/JsonLD.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { computeStats, computeGraphData } from '../lib/analytics/computeStats';
+import { InteractiveGraph } from '../components/graph/InteractiveGraph';
+
+const badges = (await getCollection('badges')).map((e) => e.data);
+const categories = (await getCollection('categories')).map((e) => e.data);
+const technologies = (await getCollection('technologies')).map((e) => e.data);
+const stats = computeStats(badges, categories, technologies);
+const graphData = computeGraphData(badges, categories, technologies);
+
+const canonicalUrl = 'https://cloud.rajathkiran.me/graph';
+
+const categoryColorMap: Record<string, string> = {
+  'ai-and-ml': '#4285f4',
+  'data-analytics': '#fbbc04',
+  'cloud-infrastructure': '#34a853',
+  'networking': '#ea4335',
+  'security': '#ff6d00',
+  'devops': '#00bcd4',
+  'application-development': '#ab47bc',
+};
+
+// Node type breakdown
+const nodesByType = graphData.nodes.reduce<Record<string, number>>((acc, n) => {
+  acc[n.type] = (acc[n.type] ?? 0) + 1;
+  return acc;
+}, {});
+
+const edgesByType = graphData.edges.reduce<Record<string, number>>((acc, e) => {
+  acc[e.type] = (acc[e.type] ?? 0) + 1;
+  return acc;
+}, {});
+
+// Technology nodes with their connection count
+const techNodesWithConnections = graphData.nodes
+  .filter((n) => n.type === 'TECHNOLOGY')
+  .map((n) => {
+    const connectionCount = graphData.edges.filter(
+      (e) => e.source === n.id || e.target === n.id,
+    ).length;
+    return { ...n, connectionCount };
+  })
+  .sort((a, b) => b.connectionCount - a.connectionCount);
+
+const datasetSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Rajath Kiran — Google Cloud Knowledge Graph',
+  description: `Knowledge graph with ${graphData.metadata.totalNodes} nodes and ${graphData.metadata.totalEdges} edges representing badge, technology, and category relationships.`,
+  url: canonicalUrl,
+  creator: {
+    '@type': 'Person',
+    name: 'Rajath Kiran',
+    url: 'https://rajathkiran.me',
+  },
+};
+---
+
+<BaseLayout
+  title="Knowledge Graph — Cloud Intelligence Center | Rajath Kiran"
+  description={`Rajath Kiran's Google Cloud knowledge graph: ${graphData.metadata.totalNodes} nodes and ${graphData.metadata.totalEdges} edges mapping badge, technology, and domain relationships.`}
+  canonicalUrl={canonicalUrl}
+>
+  <Fragment slot="head">
+    <JsonLD schema={datasetSchema} />
+  </Fragment>
+
+  <div class="container-page graph-page">
+
+    <Breadcrumbs
+      items={[
+        { name: 'Home', href: '/' },
+        { name: 'Knowledge Graph' },
+      ]}
+    />
+
+    <header class="graph-header">
+      <h1 class="graph-title">Knowledge Graph</h1>
+      <p class="graph-subtitle">
+        Relationships between badges, technologies, and domains.
+        The interactive 3D graph arrives in Phase 3.
+      </p>
+    </header>
+
+    <!-- Graph metrics -->
+    <div class="graph-metrics" aria-label="Graph statistics">
+      <div class="graph-metric surface-card">
+        <span class="graph-metric-val">{graphData.metadata.totalNodes}</span>
+        <span class="graph-metric-label">Nodes</span>
+      </div>
+      <div class="graph-metric surface-card">
+        <span class="graph-metric-val">{graphData.metadata.totalEdges}</span>
+        <span class="graph-metric-label">Edges</span>
+      </div>
+      <div class="graph-metric surface-card">
+        <span class="graph-metric-val">{nodesByType['BADGE'] ?? 0}</span>
+        <span class="graph-metric-label">Badge Nodes</span>
+      </div>
+      <div class="graph-metric surface-card">
+        <span class="graph-metric-val">{nodesByType['TECHNOLOGY'] ?? 0}</span>
+        <span class="graph-metric-label">Tech Nodes</span>
+      </div>
+    </div>
+
+    <!-- Interactive 3D/2D force graph -->
+    <section class="graph-universe-section" aria-label="Interactive Knowledge Graph">
+      <InteractiveGraph client:only="react" graphData={graphData} />
+    </section>
+
+    <!-- Node type legend -->
+    <section class="graph-section" aria-labelledby="legend-heading">
+      <h2 id="legend-heading" class="graph-section-title">Graph Schema</h2>
+      <div class="graph-schema-grid">
+        {[
+          { type: 'PERSON', label: 'Person', desc: 'Central node — Rajath Kiran', color: '#4285f4', count: 1 },
+          { type: 'CATEGORY', label: 'Category', desc: 'Cloud domain node', color: '#34a853', count: nodesByType['CATEGORY'] ?? 0 },
+          { type: 'TECHNOLOGY', label: 'Technology', desc: 'GCP product/service', color: '#fbbc04', count: nodesByType['TECHNOLOGY'] ?? 0 },
+          { type: 'BADGE', label: 'Badge', desc: 'Earned skill badge', color: '#ea4335', count: nodesByType['BADGE'] ?? 0 },
+        ].map((schema) => (
+          <div class="schema-card surface-card">
+            <div class="schema-card-header">
+              <div class="schema-color-dot" style={`background: ${schema.color}`} aria-hidden="true"></div>
+              <span class="schema-card-type">{schema.label}</span>
+              <span class="schema-card-count">{schema.count}</span>
+            </div>
+            <p class="schema-card-desc">{schema.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Technology connectivity table -->
+    {techNodesWithConnections.length > 0 && (
+      <section class="graph-section" aria-labelledby="tech-table-heading">
+        <h2 id="tech-table-heading" class="graph-section-title">Technology Connectivity</h2>
+        <p class="graph-section-desc">
+          Technologies ranked by number of graph connections (badge + category edges).
+          Edges are only created from real badge-to-technology relationships.
+        </p>
+        <div class="tech-table surface-card">
+          <table class="tech-table-el" aria-label="Technology connectivity table">
+            <thead>
+              <tr>
+                <th class="tech-th" scope="col">#</th>
+                <th class="tech-th" scope="col">Technology</th>
+                <th class="tech-th" scope="col">Category</th>
+                <th class="tech-th tech-th-right" scope="col">Connections</th>
+              </tr>
+            </thead>
+            <tbody>
+              {techNodesWithConnections.map((node, i) => {
+                const techObj = technologies.find((t) => t.id === node.id.replace('tech-', ''));
+                const cat = categories.find((c) => c.id === techObj?.category);
+                const color = techObj ? (categoryColorMap[techObj.category] ?? '#4285f4') : '#4285f4';
+                return (
+                  <tr class="tech-tr">
+                    <td class="tech-td tech-td-rank">{i + 1}</td>
+                    <td class="tech-td">
+                      {techObj ? (
+                        <a href={`/technology/${techObj.id}`} class="tech-td-link">
+                          <span class="tech-td-dot" style={`background: ${color}`} aria-hidden="true"></span>
+                          {techObj.name}
+                        </a>
+                      ) : node.label}
+                    </td>
+                    <td class="tech-td">
+                      {cat ? (
+                        <a href={`/category/${cat.id}`} class="tech-td-cat-link">
+                          {cat.shortName}
+                        </a>
+                      ) : '—'}
+                    </td>
+                    <td class="tech-td tech-td-right">
+                      <span class="tech-td-count" style={`color: ${color}`}>{node.connectionCount}</span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>
+
+<style>
+  .graph-page {
+    padding-top: 32px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+  }
+
+  .graph-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 600px;
+  }
+
+  .graph-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .graph-subtitle {
+    font-size: 16px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Metrics */
+  .graph-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .graph-metric {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .graph-metric-val {
+    font-family: var(--font-mono);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .graph-metric-label {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
+  }
+
+  /* Graph placeholder */
+  .graph-universe-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .graph-placeholder {
+    height: 320px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .graph-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(66,133,244,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .graph-ascii {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .graph-center-node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+  }
+
+  .graph-center-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 16px rgba(66,133,244,0.4);
+  }
+
+  .graph-center-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-accent);
+    white-space: nowrap;
+  }
+
+  .graph-spokes {
+    position: absolute;
+    inset: 0;
+  }
+
+  .graph-spoke-node {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .graph-spoke-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--node-color, var(--color-accent));
+    opacity: 0.8;
+  }
+
+  .graph-spoke-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--node-color, var(--color-text-tertiary));
+    white-space: nowrap;
+    opacity: 0.7;
+  }
+
+  .graph-placeholder-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    position: absolute;
+    bottom: 16px;
+    margin: 0;
+  }
+
+  /* Section */
+  .graph-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .graph-section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .graph-section-desc {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin: -8px 0 0;
+    max-width: 60ch;
+    line-height: 1.6;
+  }
+
+  /* Schema cards */
+  .graph-schema-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .schema-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .schema-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .schema-color-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .schema-card-type {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    flex: 1;
+    font-family: var(--font-mono);
+  }
+
+  .schema-card-count {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-accent);
+  }
+
+  .schema-card-desc {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  /* Tech table */
+  .tech-table {
+    overflow-x: auto;
+    padding: 0;
+  }
+
+  .tech-table-el {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  .tech-th {
+    padding: 12px 20px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    white-space: nowrap;
+  }
+
+  .tech-th-right {
+    text-align: right;
+  }
+
+  .tech-tr {
+    border-bottom: 1px solid var(--color-border-subtle);
+    transition: background 150ms ease;
+  }
+
+  .tech-tr:last-child {
+    border-bottom: none;
+  }
+
+  .tech-tr:hover {
+    background: var(--color-surface-hover);
+  }
+
+  .tech-td {
+    padding: 14px 20px;
+    color: var(--color-text-secondary);
+    vertical-align: middle;
+  }
+
+  .tech-td-rank {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    width: 40px;
+  }
+
+  .tech-td-right {
+    text-align: right;
+  }
+
+  .tech-td-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-text-primary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .tech-td-link:hover {
+    color: var(--color-accent);
+  }
+
+  .tech-td-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .tech-td-cat-link {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    transition: color 150ms ease;
+  }
+
+  .tech-td-cat-link:hover {
+    color: var(--color-accent);
+  }
+
+  .tech-td-count {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+  }
+</style>

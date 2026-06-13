@@ -1,0 +1,8 @@
+{
+  "id": "cloud-speech-api",
+  "name": "Cloud Speech-to-Text API",
+  "description": "Transcribes audio to text using Google's deep learning neural networks.",
+  "category": "ai-and-ml",
+  "gcpProductUrl": "https://cloud.google.com/speech-to-text",
+  "relatedTechnologies": []
+}

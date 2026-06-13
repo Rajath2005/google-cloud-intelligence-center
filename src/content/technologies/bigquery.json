@@ -1,0 +1,8 @@
+{
+  "id": "bigquery",
+  "name": "BigQuery",
+  "description": "Google Cloud's fully managed, serverless data warehouse for analytics at any scale.",
+  "category": "data-analytics",
+  "gcpProductUrl": "https://cloud.google.com/bigquery",
+  "relatedTechnologies": []
+}

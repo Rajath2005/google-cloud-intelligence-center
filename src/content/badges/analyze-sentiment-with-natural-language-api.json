@@ -1,0 +1,21 @@
+{
+  "id": "24264993",
+  "name": "Analyze Sentiment with Natural Language API",
+  "description": "Earned Google Cloud skill badge: Analyze Sentiment with Natural Language API",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/IwoV5yIJ1i3GJ%2BULEbrXtiv%2BhXE3wV9QFTLOd8R3DSo%3D",
+  "localImagePath": "/badges/24264993.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24264993",
+  "earnedDate": "2026-05-19",
+  "earnedDateRaw": "May 19, 2026 EDT",
+  "category": "ai-and-ml",
+  "technologies": [
+    "cloud-natural-language-api"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "cloud-natural-language-api"
+  ],
+  "relatedPaths": []
+}

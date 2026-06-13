@@ -1,0 +1,21 @@
+{
+  "id": "24323497",
+  "name": "Organize and Govern Data with Knowledge Catalog",
+  "description": "Earned Google Cloud skill badge: Organize and Govern Data with Knowledge Catalog",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/s9Urq9GOUK3hvSrie1lkoYFStxVUrj1t8kJDhlzuVqM%3D",
+  "localImagePath": "/badges/24323497.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24323497",
+  "earnedDate": "2026-05-21",
+  "earnedDateRaw": "May 21, 2026 EDT",
+  "category": "ai-and-ml",
+  "technologies": [
+    "knowledge-catalog"
+  ],
+  "difficulty": "introductory",
+  "type": "skill_badge",
+  "tags": [
+    "knowledge-catalog"
+  ],
+  "relatedPaths": []
+}

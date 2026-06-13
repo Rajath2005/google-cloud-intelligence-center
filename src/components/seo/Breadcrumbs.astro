@@ -1,0 +1,100 @@
+---
+/**
+ * Breadcrumbs.astro
+ * Renders semantic breadcrumb navigation + BreadcrumbList JSON-LD.
+ * Required on all dynamic routes per seo-rules.md.
+ *
+ * WCAG: nav has aria-label="Breadcrumb"
+ * Schema: BreadcrumbList auto-generated from `items`
+ */
+
+import JsonLD from './JsonLD.astro';
+
+interface BreadcrumbItem {
+  name: string;
+  href?: string; // last item has no href (current page)
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  /** Absolute base URL for schema item URLs */
+  baseUrl?: string;
+}
+
+const { items, baseUrl = 'https://cloud.rajathkiran.me' } = Astro.props;
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    ...(item.href ? { item: `${baseUrl}${item.href}` } : {}),
+  })),
+};
+---
+
+<JsonLD schema={breadcrumbSchema} />
+
+<nav aria-label="Breadcrumb" class="breadcrumb-nav">
+  <ol class="breadcrumb-list">
+    {items.map((item, index) => (
+      <li class="breadcrumb-item">
+        {index > 0 && (
+          <span class="breadcrumb-sep" aria-hidden="true">/</span>
+        )}
+        {item.href ? (
+          <a href={item.href} class="breadcrumb-link">{item.name}</a>
+        ) : (
+          <span class="breadcrumb-current" aria-current="page">{item.name}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumb-nav {
+    padding: 12px 0;
+  }
+
+  .breadcrumb-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .breadcrumb-sep {
+    color: var(--color-text-tertiary);
+    font-size: 13px;
+    user-select: none;
+  }
+
+  .breadcrumb-link {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .breadcrumb-link:hover {
+    color: var(--color-accent);
+  }
+
+  .breadcrumb-current {
+    font-size: 13px;
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+</style>

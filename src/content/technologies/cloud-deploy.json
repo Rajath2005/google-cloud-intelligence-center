@@ -1,0 +1,8 @@
+{
+  "id": "cloud-deploy",
+  "name": "Cloud Deploy",
+  "description": "Continuous delivery service for deploying applications to GKE, Cloud Run, and more.",
+  "category": "devops",
+  "gcpProductUrl": "https://cloud.google.com/deploy",
+  "relatedTechnologies": []
+}

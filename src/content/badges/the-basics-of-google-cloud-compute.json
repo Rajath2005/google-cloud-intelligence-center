@@ -1,0 +1,21 @@
+{
+  "id": "24186105",
+  "name": "The Basics of Google Cloud Compute",
+  "description": "Earned Google Cloud skill badge: The Basics of Google Cloud Compute",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/9lB99Ij%2BMz%2FyOV0484V995beQHBMMCw0kimBFfZVtcM%3D",
+  "localImagePath": "/badges/24186105.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24186105",
+  "earnedDate": "2026-05-15",
+  "earnedDateRaw": "May 15, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "compute-engine"
+  ],
+  "difficulty": "introductory",
+  "type": "skill_badge",
+  "tags": [
+    "compute-engine"
+  ],
+  "relatedPaths": []
+}

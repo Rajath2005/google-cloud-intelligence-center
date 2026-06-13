@@ -1,0 +1,407 @@
+---
+/**
+ * /category/[slug].astro — Category pillar page
+ * Schema: CollectionPage + ItemList JSON-LD
+ * SEO: "Google Cloud [Category] skills — Rajath Kiran"
+ * Internal links: all badges in category, all technologies in category
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JsonLD from '../../components/seo/JsonLD.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { ArrowRight } from '@phosphor-icons/react';
+
+export async function getStaticPaths() {
+  const categories = await getCollection('categories');
+  return categories.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const category = entry.data;
+
+const allBadges = (await getCollection('badges')).map((e) => e.data);
+const allTechnologies = (await getCollection('technologies')).map((e) => e.data);
+
+const categoryBadges = allBadges
+  .filter((b) => b.category === category.id)
+  .sort((a, b) => {
+    if (!a.earnedDate && !b.earnedDate) return 0;
+    if (!a.earnedDate) return 1;
+    if (!b.earnedDate) return -1;
+    return a.earnedDate > b.earnedDate ? -1 : 1;
+  });
+
+const categoryTechnologies = allTechnologies.filter((t) => t.category === category.id);
+
+const canonicalUrl = `https://cloud.rajathkiran.me/category/${entry.id}`;
+
+const categoryColorMap: Record<string, string> = {
+  'ai-and-ml': '#4285f4',
+  'data-analytics': '#fbbc04',
+  'cloud-infrastructure': '#34a853',
+  'networking': '#ea4335',
+  'security': '#ff6d00',
+  'devops': '#00bcd4',
+  'application-development': '#ab47bc',
+};
+const accentColor = categoryColorMap[category.id] ?? '#4285f4';
+
+const difficultyLabel: Record<string, string> = {
+  introductory: 'Introductory',
+  intermediate: 'Intermediate',
+  advanced: 'Advanced',
+};
+
+// JSON-LD: CollectionPage + ItemList
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${category.name} — Google Cloud Skills | Rajath Kiran`,
+  description: category.description,
+  url: canonicalUrl,
+};
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `${category.name} Google Cloud Badges — Rajath Kiran`,
+  numberOfItems: categoryBadges.length,
+  itemListElement: categoryBadges.map((badge, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `https://cloud.rajathkiran.me/badge/${badge.id}`,
+    name: badge.name,
+  })),
+};
+---
+
+<BaseLayout
+  title={`Google Cloud ${category.name} — Rajath Kiran | Cloud Intelligence Center`}
+  description={`${categoryBadges.length} Google Cloud ${category.name} badges earned by Rajath Kiran. ${category.description.slice(0, 100)}`}
+  canonicalUrl={canonicalUrl}
+  ogType="article"
+>
+  <Fragment slot="head">
+    <JsonLD schema={[collectionSchema, itemListSchema]} />
+  </Fragment>
+
+  <div class="container-page category-page">
+
+    <Breadcrumbs
+      items={[
+        { name: 'Home', href: '/' },
+        { name: 'Categories', href: '/#genome-heading' },
+        { name: category.name },
+      ]}
+    />
+
+    <!-- Category Header -->
+    <header class="cat-header" style={`--accent: ${accentColor}`}>
+      <div class="cat-accent-bar" aria-hidden="true"></div>
+      <div class="cat-header-content">
+        <div class="cat-stat-row">
+          <div class="cat-stat">
+            <span class="cat-stat-val">{categoryBadges.length}</span>
+            <span class="cat-stat-label">Badges</span>
+          </div>
+          <div class="cat-stat">
+            <span class="cat-stat-val">{categoryTechnologies.length}</span>
+            <span class="cat-stat-label">Technologies</span>
+          </div>
+        </div>
+        <h1 class="cat-title">{category.name}</h1>
+        <p class="cat-desc">{category.description}</p>
+      </div>
+    </header>
+
+    <!-- Technologies in this category -->
+    {categoryTechnologies.length > 0 && (
+      <section class="cat-section" aria-labelledby="tech-heading">
+        <h2 id="tech-heading" class="cat-section-title">Technologies</h2>
+        <div class="tech-grid">
+          {categoryTechnologies.map((tech) => (
+            <a href={`/technology/${tech.id}`} class="tech-card surface-card hover-lift">
+              <div class="tech-card-dot" style={`background: ${accentColor}`} aria-hidden="true"></div>
+              <div class="tech-card-body">
+                <h3 class="tech-card-name">{tech.name}</h3>
+                <p class="tech-card-desc">{tech.description.slice(0, 80)}…</p>
+              </div>
+              <ArrowRight size={14} class="tech-card-arrow" aria-hidden />
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Badges in this category -->
+    <section class="cat-section" aria-labelledby="badges-heading">
+      <h2 id="badges-heading" class="cat-section-title">
+        {categoryBadges.length > 0 ? `${categoryBadges.length} Badges Earned` : 'No Badges Yet'}
+      </h2>
+
+      {categoryBadges.length > 0 ? (
+        <div class="cat-badge-grid">
+          {categoryBadges.map((badge) => (
+            <a href={`/badge/${badge.id}`} class="cat-badge-card surface-card hover-lift">
+              <div class="cat-badge-img-wrap">
+                <img
+                  src={badge.badgeImageUrl}
+                  alt={`${badge.name} badge`}
+                  width="56"
+                  height="56"
+                  class="cat-badge-img"
+                  loading="lazy"
+                />
+              </div>
+              <div class="cat-badge-body">
+                <span class={`badge-pill difficulty-${badge.difficulty}`}>
+                  {difficultyLabel[badge.difficulty]}
+                </span>
+                <h3 class="cat-badge-title">{badge.name}</h3>
+                {badge.earnedDate && (
+                  <time class="cat-badge-date" datetime={badge.earnedDate}>
+                    {new Date(badge.earnedDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  </time>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="cat-empty">
+          <p>No badges in this category yet. Check back as more are added.</p>
+          <a href="/badge" class="btn-secondary">View all badges</a>
+        </div>
+      )}
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .category-page {
+    padding-top: 32px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  /* Header */
+  .cat-header {
+    padding: 40px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cat-accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+  }
+
+  .cat-header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cat-stat-row {
+    display: flex;
+    gap: 32px;
+  }
+
+  .cat-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cat-stat-val {
+    font-family: var(--font-mono);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .cat-stat-label {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-family: var(--font-mono);
+  }
+
+  .cat-title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .cat-desc {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  /* Sections */
+  .cat-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .cat-section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* Tech grid */
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  .tech-card {
+    display: grid;
+    grid-template-columns: 8px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    text-decoration: none;
+    transition: border-color 200ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .tech-card-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .tech-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .tech-card-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .tech-card-desc {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tech-card-arrow {
+    color: var(--color-text-tertiary);
+    flex-shrink: 0;
+    transition: color 150ms ease;
+  }
+
+  .tech-card:hover .tech-card-arrow {
+    color: var(--color-accent);
+  }
+
+  /* Badge grid */
+  .cat-badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .cat-badge-card {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 16px;
+    padding: 18px;
+    text-decoration: none;
+    align-items: center;
+    transition: border-color 200ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .cat-badge-img-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    overflow: hidden;
+  }
+
+  .cat-badge-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .cat-badge-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .cat-badge-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .cat-badge-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+  }
+
+  /* Empty state */
+  .cat-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 40px;
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-card);
+  }
+
+  .cat-empty p {
+    color: var(--color-text-secondary);
+    margin: 0;
+    font-size: 15px;
+  }
+</style>

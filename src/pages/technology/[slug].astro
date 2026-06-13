@@ -1,0 +1,358 @@
+---
+/**
+ * /technology/[slug].astro — Technology detail page
+ * Schema: TechArticle JSON-LD
+ * Internal links: category, all related badges, related technologies
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JsonLD from '../../components/seo/JsonLD.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { ArrowSquareOut } from '@phosphor-icons/react';
+
+export async function getStaticPaths() {
+  const technologies = await getCollection('technologies');
+  return technologies.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const tech = entry.data;
+
+const allBadges = (await getCollection('badges')).map((e) => e.data);
+const allCategories = (await getCollection('categories')).map((e) => e.data);
+const allTechnologies = (await getCollection('technologies')).map((e) => e.data);
+
+const category = allCategories.find((c) => c.id === tech.category);
+const techBadges = allBadges.filter((b) => b.technologies.includes(tech.id));
+const relatedTechs = allTechnologies.filter(
+  (t) => t.id !== tech.id && tech.relatedTechnologies.includes(t.id),
+);
+
+const canonicalUrl = `https://cloud.rajathkiran.me/technology/${entry.id}`;
+
+const categoryColorMap: Record<string, string> = {
+  'ai-and-ml': '#4285f4',
+  'data-analytics': '#fbbc04',
+  'cloud-infrastructure': '#34a853',
+  'networking': '#ea4335',
+  'security': '#ff6d00',
+  'devops': '#00bcd4',
+  'application-development': '#ab47bc',
+};
+const accentColor = categoryColorMap[tech.category] ?? '#4285f4';
+
+const difficultyLabel: Record<string, string> = {
+  introductory: 'Introductory',
+  intermediate: 'Intermediate',
+  advanced: 'Advanced',
+};
+
+// JSON-LD: TechArticle
+const techArticleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  name: `${tech.name} — Google Cloud`,
+  description: tech.description,
+  url: canonicalUrl,
+  author: {
+    '@type': 'Person',
+    name: 'Rajath Kiran',
+    url: 'https://rajathkiran.me',
+  },
+  about: {
+    '@type': 'SoftwareApplication',
+    name: tech.name,
+    applicationCategory: 'CloudApplication',
+    operatingSystem: 'Google Cloud Platform',
+    ...(tech.gcpProductUrl ? { url: tech.gcpProductUrl } : {}),
+  },
+};
+---
+
+<BaseLayout
+  title={`${tech.name} Google Cloud — Rajath Kiran | Cloud Intelligence Center`}
+  description={`Rajath Kiran's expertise in ${tech.name} on Google Cloud. ${tech.description.slice(0, 110)}`}
+  canonicalUrl={canonicalUrl}
+  ogType="article"
+>
+  <Fragment slot="head">
+    <JsonLD schema={techArticleSchema} />
+  </Fragment>
+
+  <div class="container-page tech-page">
+
+    <Breadcrumbs
+      items={[
+        { name: 'Home', href: '/' },
+        ...(category ? [{ name: category.name, href: `/category/${category.id}` }] : []),
+        { name: tech.name },
+      ]}
+    />
+
+    <!-- Header -->
+    <header class="tech-header" style={`--accent: ${accentColor}`}>
+      <div class="tech-header-inner">
+        <div class="tech-header-content">
+          {category && (
+            <a href={`/category/${category.id}`} class="tech-category-link">
+              <span class="tech-category-dot" style={`background: ${accentColor}`} aria-hidden="true"></span>
+              {category.name}
+            </a>
+          )}
+          <h1 class="tech-title">{tech.name}</h1>
+          <p class="tech-desc">{tech.description}</p>
+          <div class="tech-actions">
+            <span class="tech-badge-count">
+              <strong class="tech-count-val">{techBadges.length}</strong>
+              {techBadges.length === 1 ? 'badge' : 'badges'} earned
+            </span>
+            {tech.gcpProductUrl && (
+              <a
+                href={tech.gcpProductUrl}
+                class="btn-secondary"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Official Docs
+                <ArrowSquareOut size={14} weight="bold" aria-hidden />
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Badges using this technology -->
+    {techBadges.length > 0 && (
+      <section class="tech-section" aria-labelledby="badges-heading">
+        <h2 id="badges-heading" class="tech-section-title">Badges Earned in {tech.name}</h2>
+        <div class="tech-badge-grid">
+          {techBadges.map((badge) => (
+            <a href={`/badge/${badge.id}`} class="tech-badge-card surface-card hover-lift">
+              <div class="tech-badge-img-wrap">
+                <img
+                  src={badge.badgeImageUrl}
+                  alt={`${badge.name} badge`}
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  class="tech-badge-img"
+                />
+              </div>
+              <div class="tech-badge-body">
+                <span class={`badge-pill difficulty-${badge.difficulty}`}>
+                  {difficultyLabel[badge.difficulty]}
+                </span>
+                <h3 class="tech-badge-title">{badge.name}</h3>
+                <p class="tech-badge-desc">{badge.description.slice(0, 70)}…</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related technologies -->
+    {relatedTechs.length > 0 && (
+      <section class="tech-section" aria-labelledby="related-tech-heading">
+        <h2 id="related-tech-heading" class="tech-section-title">Related Technologies</h2>
+        <div class="related-tech-chips">
+          {relatedTechs.map((t) => {
+            const relColor = categoryColorMap[t.category] ?? '#4285f4';
+            return (
+              <a href={`/technology/${t.id}`} class="related-tech-chip hover-lift">
+                <span class="related-tech-dot" style={`background: ${relColor}`} aria-hidden="true"></span>
+                {t.name}
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    )}
+
+  </div>
+</BaseLayout>
+
+<style>
+  .tech-page {
+    padding-top: 32px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .tech-header {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-card);
+    padding: 40px;
+  }
+
+  .tech-header-inner {
+    max-width: 700px;
+  }
+
+  .tech-header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tech-category-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+
+  .tech-category-link:hover { color: var(--color-text-primary); }
+
+  .tech-category-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .tech-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .tech-desc {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .tech-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .tech-badge-count {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  .tech-count-val {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .tech-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .tech-section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .tech-badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .tech-badge-card {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 16px;
+    padding: 18px;
+    text-decoration: none;
+    align-items: flex-start;
+    transition: border-color 200ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .tech-badge-img-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    overflow: hidden;
+  }
+
+  .tech-badge-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .tech-badge-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .tech-badge-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .tech-badge-desc {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .related-tech-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .related-tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: border-color 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .related-tech-chip:hover { border-color: var(--color-accent); }
+
+  .related-tech-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+</style>

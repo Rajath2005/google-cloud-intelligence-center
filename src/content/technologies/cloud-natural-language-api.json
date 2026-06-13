@@ -1,0 +1,8 @@
+{
+  "id": "cloud-natural-language-api",
+  "name": "Cloud Natural Language API",
+  "description": "Pre-trained ML models for natural language understanding including sentiment, entity, and syntax analysis.",
+  "category": "ai-and-ml",
+  "gcpProductUrl": "https://cloud.google.com/natural-language",
+  "relatedTechnologies": []
+}

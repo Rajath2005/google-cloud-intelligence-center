@@ -1,0 +1,23 @@
+{
+  "id": "23970819",
+  "name": "Deploy Kubernetes Applications on Google Cloud",
+  "description": "Earned Google Cloud skill badge: Deploy Kubernetes Applications on Google Cloud",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/XEaSHIu5cNECoi%2FM%2Fw30h9DDBXPP9Sdke8OQQPv3gNQ%3D",
+  "localImagePath": "/badges/23970819.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/23970819",
+  "earnedDate": "2026-05-05",
+  "earnedDateRaw": "May  5, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "kubernetes-engine",
+    "cloud-deploy"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "kubernetes-engine",
+    "cloud-deploy"
+  ],
+  "relatedPaths": []
+}

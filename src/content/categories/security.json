@@ -1,0 +1,8 @@
+{
+  "id": "security",
+  "name": "Security",
+  "description": "Identity and access management, encryption, threat detection, and security compliance on Google Cloud.",
+  "icon": "ShieldCheck",
+  "colorToken": "--color-security",
+  "shortName": "Security"
+}

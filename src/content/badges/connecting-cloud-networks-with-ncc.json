@@ -1,0 +1,21 @@
+{
+  "id": "24322548",
+  "name": "Connecting Cloud Networks with NCC",
+  "description": "Earned Google Cloud skill badge: Connecting Cloud Networks with NCC",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/Y0Bg%2FY1trEfF5%2FwE6ByOpoQbSFoZzhKA4AzWbVuBFmY%3D",
+  "localImagePath": "/badges/24322548.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24322548",
+  "earnedDate": "2026-05-21",
+  "earnedDateRaw": "May 21, 2026 EDT",
+  "category": "networking",
+  "technologies": [
+    "network-connectivity-center"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "network-connectivity-center"
+  ],
+  "relatedPaths": []
+}

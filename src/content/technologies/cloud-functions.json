@@ -1,0 +1,8 @@
+{
+  "id": "cloud-functions",
+  "name": "Cloud Functions",
+  "description": "Serverless execution environment for building and connecting cloud services.",
+  "category": "cloud-infrastructure",
+  "gcpProductUrl": "https://cloud.google.com/functions",
+  "relatedTechnologies": []
+}

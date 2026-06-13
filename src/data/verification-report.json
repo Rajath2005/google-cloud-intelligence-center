@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-06-13T08:11:24.873Z",
+  "profile": {
+    "name": "Rajath Kiran",
+    "league": "Silver",
+    "points": 1754,
+    "memberSince": "2024",
+    "avatarStatus": "found"
+  },
+  "badges": {
+    "total": 62,
+    "withImages": 62,
+    "withEarnedDate": 62,
+    "latestBadge": "Build Infrastructure with Terraform on Google Cloud",
+    "latestBadgeDate": "2026-06-11",
+    "oldestBadgeDate": "2025-11-23"
+  },
+  "categories": {
+    "total": 7,
+    "mostActive": "cloud-infrastructure",
+    "mostActiveBadgeCount": 38,
+    "breakdown": {
+      "cloud-infrastructure": 38,
+      "security": 2,
+      "data-analytics": 5,
+      "ai-and-ml": 10,
+      "networking": 1,
+      "application-development": 4,
+      "devops": 2
+    }
+  },
+  "technologies": {
+    "total": 21,
+    "topClusters": [
+      {
+        "id": "bigquery",
+        "count": 5
+      },
+      {
+        "id": "cloud-monitoring",
+        "count": 5
+      },
+      {
+        "id": "cloud-build",
+        "count": 4
+      },
+      {
+        "id": "kubernetes-engine",
+        "count": 4
+      },
+      {
+        "id": "compute-engine",
+        "count": 3
+      },
+      {
+        "id": "cloud-functions",
+        "count": 2
+      },
+      {
+        "id": "google-workspace",
+        "count": 2
+      },
+      {
+        "id": "cloud-natural-language-api",
+        "count": 2
+      },
+      {
+        "id": "bigquery-ml",
+        "count": 2
+      },
+      {
+        "id": "cloud-storage",
+        "count": 2
+      }
+    ]
+  },
+  "media": {
+    "totalBadgeImages": 62,
+    "imageCoveragePercent": 100
+  },
+  "difficulty": {
+    "intermediate": 62
+  },
+  "type": {
+    "skill_badge": 62
+  }
+}

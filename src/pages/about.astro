@@ -1,0 +1,489 @@
+---
+/**
+ * /about.astro — Identity and mission page
+ * Schema: Person (detailed) — knowledge panel signal
+ * All identity anchors prominently placed
+ */
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLD from '../components/seo/JsonLD.astro';
+import Breadcrumbs from '../components/seo/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { computeStats } from '../lib/analytics/computeStats';
+import { ArrowSquareOut, GithubLogo, LinkedinLogo, Globe, Medal } from '@phosphor-icons/react';
+
+const badges = (await getCollection('badges')).map((e) => e.data);
+const categories = (await getCollection('categories')).map((e) => e.data);
+const technologies = (await getCollection('technologies')).map((e) => e.data);
+const stats = computeStats(badges, categories, technologies);
+
+const canonicalUrl = 'https://cloud.rajathkiran.me/about';
+
+const detailedPersonSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Rajath Kiran',
+  url: 'https://rajathkiran.me',
+  description: 'Cloud engineer and developer with expertise in Google Cloud, AI/ML, data analytics, and modern cloud infrastructure.',
+  sameAs: [
+    'https://github.com/Rajath2005',
+    'http://linkedin.com/in/rajath-kiran/',
+    'https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0',
+    'https://cloud.rajathkiran.me',
+  ],
+  knowsAbout: [
+    'Google Cloud Platform',
+    'Vertex AI',
+    'BigQuery',
+    'Gemini',
+    'Cloud Run',
+    'Kubernetes Engine',
+    'Machine Learning',
+    'Generative AI',
+    'Data Analytics',
+    'Cloud Infrastructure',
+  ],
+  hasCredential: badges.map((b) => ({
+    '@type': 'EducationalOccupationalCredential',
+    name: b.name,
+    url: `https://cloud.rajathkiran.me/badge/${b.id}`,
+    credentialCategory: 'Badge',
+    recognizedBy: {
+      '@type': 'Organization',
+      name: 'Google Cloud',
+    },
+  })),
+};
+
+const profileLinks = [
+  {
+    href: 'https://rajathkiran.me',
+    label: 'Portfolio',
+    sublabel: 'rajathkiran.me',
+    Icon: Globe,
+    accent: '#4285f4',
+    rel: 'me noopener noreferrer',
+  },
+  {
+    href: 'https://github.com/Rajath2005',
+    label: 'GitHub',
+    sublabel: 'Rajath2005',
+    Icon: GithubLogo,
+    accent: '#e8edf5',
+    rel: 'me noopener noreferrer',
+  },
+  {
+    href: 'http://linkedin.com/in/rajath-kiran/',
+    label: 'LinkedIn',
+    sublabel: 'rajath-kiran',
+    Icon: LinkedinLogo,
+    accent: '#0a66c2',
+    rel: 'me noopener noreferrer',
+  },
+  {
+    href: 'https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0',
+    label: 'Google Skills',
+    sublabel: 'Skills Profile',
+    Icon: Medal,
+    accent: '#34a853',
+    rel: 'me noopener noreferrer',
+  },
+];
+---
+
+<BaseLayout
+  title="About — Rajath Kiran | Cloud Intelligence Center"
+  description="About the Cloud Intelligence Center: Rajath Kiran's dedicated Google Cloud showcase platform. Learn about the mission, architecture, and identity behind this cloud intelligence platform."
+  canonicalUrl={canonicalUrl}
+>
+  <Fragment slot="head">
+    <JsonLD schema={detailedPersonSchema} />
+  </Fragment>
+
+  <div class="container-page about-page">
+
+    <Breadcrumbs
+      items={[
+        { name: 'Home', href: '/' },
+        { name: 'About' },
+      ]}
+    />
+
+    <!-- Identity Section -->
+    <section class="about-identity" aria-labelledby="about-heading">
+      <div class="about-identity-text">
+        <p class="eyebrow">About</p>
+        <h1 id="about-heading" class="about-title">Rajath Kiran</h1>
+        <p class="about-bio">
+          Cloud engineer and developer building expertise across Google Cloud's ecosystem —
+          AI & machine learning, data analytics, infrastructure, and application development.
+          This platform is the definitive public record of that journey.
+        </p>
+
+        <!-- Stats row -->
+        <div class="about-stats" aria-label="Cloud journey statistics">
+          <div class="about-stat">
+            <span class="about-stat-val">{stats.totalBadges}</span>
+            <span class="about-stat-label">Badges Earned</span>
+          </div>
+          <div class="about-stat-div" aria-hidden="true"></div>
+          <div class="about-stat">
+            <span class="about-stat-val">{stats.totalTechnologies}</span>
+            <span class="about-stat-label">Technologies</span>
+          </div>
+          <div class="about-stat-div" aria-hidden="true"></div>
+          <div class="about-stat">
+            <span class="about-stat-val">{stats.totalCategories}</span>
+            <span class="about-stat-label">Domains</span>
+          </div>
+          {stats.expertiseDomains.length > 0 && (
+            <>
+              <div class="about-stat-div" aria-hidden="true"></div>
+              <div class="about-stat">
+                <span class="about-stat-val">{stats.expertiseDomains.length}</span>
+                <span class="about-stat-label">Expertise Domains</span>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      <!-- Identity Links -->
+      <div class="about-links" aria-label="External profiles">
+        {profileLinks.map(({ href, label, sublabel, Icon, accent, rel }) => (
+          <a
+            href={href}
+            class="profile-link surface-card"
+            target="_blank"
+            rel={rel}
+            aria-label={`${label} — ${sublabel}`}
+            style={`--link-accent: ${accent}`}
+          >
+            <div class="profile-link-icon" aria-hidden="true">
+              <Icon size={20} weight="bold" />
+            </div>
+            <div class="profile-link-text">
+              <span class="profile-link-label">{label}</span>
+              <span class="profile-link-sub">{sublabel}</span>
+            </div>
+            <ArrowSquareOut size={14} class="profile-link-arrow" aria-hidden />
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Platform Mission -->
+    <section class="about-section" aria-labelledby="mission-heading">
+      <h2 id="mission-heading" class="about-section-title">Platform Mission</h2>
+      <div class="about-section-body about-mission-grid">
+        <div class="mission-block">
+          <h3 class="mission-block-title">What this is</h3>
+          <p class="mission-block-text">
+            A dedicated Google Cloud showcase and intelligence platform. Every badge, lab, learning path,
+            and certificate earned on Google Cloud Skills Boost is recorded, analyzed, and made publicly
+            verifiable here.
+          </p>
+        </div>
+        <div class="mission-block">
+          <h3 class="mission-block-title">What this is not</h3>
+          <p class="mission-block-text">
+            This platform does not replace the primary portfolio at{' '}
+            <a href="https://rajathkiran.me" class="about-inline-link" target="_blank" rel="me noopener noreferrer">
+              rajathkiran.me
+            </a>. It complements it. Identity and software work lives at the portfolio.
+            Cloud learning intelligence lives here.
+          </p>
+        </div>
+        <div class="mission-block">
+          <h3 class="mission-block-title">Data principles</h3>
+          <p class="mission-block-text">
+            Every score, relationship, and statistic on this platform is computed from real badge data.
+            No expertise is claimed from a single badge. No relationship is fabricated. If the data
+            doesn't exist, the metric doesn't appear.
+          </p>
+        </div>
+        <div class="mission-block">
+          <h3 class="mission-block-title">Built with</h3>
+          <p class="mission-block-text">
+            Astro 6 (Island architecture), Tailwind v4, TypeScript, React Three Fiber (3D Universe),
+            D3 (Knowledge Graph), deployed on Cloudflare Pages with edge delivery.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Source of truth -->
+    <section class="about-section about-source" aria-labelledby="source-heading">
+      <h2 id="source-heading" class="about-section-title">Source of Truth</h2>
+      <p class="about-section-text">
+        All achievement data originates from the official Google Skills public profile. This is the
+        single authoritative source for all badges and certifications displayed on this platform.
+      </p>
+      <a
+        href="https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0"
+        class="source-link surface-card"
+        target="_blank"
+        rel="me noopener noreferrer"
+      >
+        <div class="source-link-content">
+          <span class="source-link-label">Google Skills Profile</span>
+          <span class="source-link-url">skills.google/public_profiles/...</span>
+        </div>
+        <ArrowSquareOut size={16} aria-hidden style={{ color: "var(--color-accent)", flexShrink: 0 }} />
+      </a>
+    </section>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .about-page {
+    padding-top: 32px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+  }
+
+  /* ─── Identity ──────────────────────────────────────────────────────────── */
+  .about-identity {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 1024px) {
+    .about-identity {
+      grid-template-columns: 1fr 360px;
+    }
+  }
+
+  .about-identity-text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .about-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .about-bio {
+    font-size: 17px;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 56ch;
+  }
+
+  .about-stats {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .about-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .about-stat-val {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .about-stat-label {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
+  }
+
+  .about-stat-div {
+    width: 1px;
+    height: 28px;
+    background: var(--color-border);
+  }
+
+  /* Profile links */
+  .about-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    text-decoration: none;
+    border-radius: var(--radius-card);
+    transition: border-color 200ms ease, background 200ms ease;
+  }
+
+  .profile-link:hover {
+    border-color: var(--link-accent);
+    background: var(--color-surface-raised);
+  }
+
+  .profile-link-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--link-accent);
+    flex-shrink: 0;
+    transition: border-color 200ms ease;
+  }
+
+  .profile-link:hover .profile-link-icon {
+    border-color: var(--link-accent);
+  }
+
+  .profile-link-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .profile-link-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .profile-link-sub {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.04em;
+  }
+
+  .profile-link-arrow {
+    color: var(--color-text-tertiary);
+    flex-shrink: 0;
+    transition: color 150ms ease;
+  }
+
+  .profile-link:hover .profile-link-arrow {
+    color: var(--link-accent);
+  }
+
+  /* ─── Sections ──────────────────────────────────────────────────────────── */
+  .about-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .about-section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .about-section-text {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  /* Mission grid */
+  .about-mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .mission-block {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 24px;
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-card);
+    background: var(--color-surface);
+  }
+
+  .mission-block-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+
+  .mission-block-text {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .about-inline-link {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .about-inline-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Source link */
+  .source-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px;
+    text-decoration: none;
+    max-width: 500px;
+    border-radius: var(--radius-card);
+    transition: border-color 200ms ease;
+  }
+
+  .source-link:hover {
+    border-color: var(--color-accent);
+  }
+
+  .source-link-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .source-link-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .source-link-url {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+  }
+</style>

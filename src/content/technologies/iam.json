@@ -1,0 +1,8 @@
+{
+  "id": "iam",
+  "name": "Identity and Access Management",
+  "description": "Fine-grained access control for Google Cloud resources.",
+  "category": "security",
+  "gcpProductUrl": "https://cloud.google.com/iam",
+  "relatedTechnologies": []
+}

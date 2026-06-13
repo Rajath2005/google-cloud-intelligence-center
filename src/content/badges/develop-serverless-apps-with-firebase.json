@@ -1,0 +1,23 @@
+{
+  "id": "24822584",
+  "name": "Develop Serverless Apps with Firebase",
+  "description": "Earned Google Cloud skill badge: Develop Serverless Apps with Firebase",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/O7gqYsPx7H7%2B9Ef%2B6pSk6gqAlzWIeDBHBx5EXfGziVU%3D",
+  "localImagePath": "/badges/24822584.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24822584",
+  "earnedDate": "2026-06-10",
+  "earnedDateRaw": "Jun 10, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "cloud-functions",
+    "firebase"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "cloud-functions",
+    "firebase"
+  ],
+  "relatedPaths": []
+}

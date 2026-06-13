@@ -1,0 +1,22 @@
+---
+/**
+ * JsonLD.astro
+ * Renders one or more Schema.org JSON-LD blocks into the page <head>.
+ * Pass any valid Schema.org object as `schema` prop.
+ *
+ * Usage:
+ *   <JsonLD schema={personSchema} />
+ *   <JsonLD schema={[breadcrumbSchema, credentialSchema]} />
+ */
+
+interface Props {
+  schema: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { schema } = Astro.props;
+const schemas = Array.isArray(schema) ? schema : [schema];
+---
+
+{schemas.map((s) => (
+  <script type="application/ld+json" set:html={JSON.stringify(s, null, 0)} />
+))}

@@ -1,0 +1,21 @@
+{
+  "id": "23349929",
+  "name": "Arcade Adventure: Security, Data, and Cloud Operations",
+  "description": "Earned Google Cloud skill badge: Arcade Adventure: Security, Data, and Cloud Operations",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/kUX3%2BYw%2F%2FWX%2FF7Gt0ZSwP1AJt0AqAqz5Mh4HxndnAuo%3D",
+  "localImagePath": "/badges/23349929.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/23349929",
+  "earnedDate": "2026-03-30",
+  "earnedDateRaw": "Mar 30, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "cloud-monitoring"
+  ],
+  "difficulty": "intermediate",
+  "type": "quest",
+  "tags": [
+    "cloud-monitoring"
+  ],
+  "relatedPaths": []
+}

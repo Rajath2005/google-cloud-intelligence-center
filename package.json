@@ -9,9 +9,33 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "sync": "node scripts/sync-profile.mjs"
   },
   "dependencies": {
-    "astro": "^6.4.6"
+    "@astrojs/react": "^5.0.7",
+    "@astrojs/sitemap": "^3.7.3",
+    "@nanostores/react": "^1.1.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@react-three/postprocessing": "^3.0.4",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/d3": "^7.4.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.184.1",
+    "astro": "^6.4.6",
+    "clsx": "^2.1.1",
+    "d3": "^7.9.0",
+    "d3-force": "^3.0.0",
+    "d3-force-3d": "^3.0.6",
+    "framer-motion": "^12.40.0",
+    "lucide-react": "^1.18.0",
+    "nanostores": "^1.3.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "tailwindcss": "^4.3.0",
+    "three": "^0.184.0"
   }
 }

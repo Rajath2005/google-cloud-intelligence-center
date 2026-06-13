@@ -1,0 +1,21 @@
+{
+  "id": "24078029",
+  "name": "Implement Cloud Storage and Data Protection Solutions",
+  "description": "Earned Google Cloud skill badge: Implement Cloud Storage and Data Protection Solutions",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/Wd86cQw9UwhtybfUCT3vGjex0P7VdpgWbmbkm%2FNIdO4%3D",
+  "localImagePath": "/badges/24078029.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24078029",
+  "earnedDate": "2026-05-10",
+  "earnedDateRaw": "May 10, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "cloud-storage"
+  ],
+  "difficulty": "introductory",
+  "type": "skill_badge",
+  "tags": [
+    "cloud-storage"
+  ],
+  "relatedPaths": []
+}

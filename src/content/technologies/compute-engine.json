@@ -1,0 +1,8 @@
+{
+  "id": "compute-engine",
+  "name": "Compute Engine",
+  "description": "Scalable, high-performance virtual machines running on Google infrastructure.",
+  "category": "cloud-infrastructure",
+  "gcpProductUrl": "https://cloud.google.com/compute",
+  "relatedTechnologies": []
+}

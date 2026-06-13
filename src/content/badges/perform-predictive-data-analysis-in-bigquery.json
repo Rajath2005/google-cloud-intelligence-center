@@ -1,0 +1,23 @@
+{
+  "id": "24186700",
+  "name": "Perform Predictive Data Analysis in BigQuery",
+  "description": "Earned Google Cloud skill badge: Perform Predictive Data Analysis in BigQuery",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/HEzAuQBpxv%2Fhl%2BZ5GYdhQbcMiSvHGTPo4olJ3oGCZ5c%3D",
+  "localImagePath": "/badges/24186700.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24186700",
+  "earnedDate": "2026-05-15",
+  "earnedDateRaw": "May 15, 2026 EDT",
+  "category": "ai-and-ml",
+  "technologies": [
+    "bigquery-ml",
+    "bigquery"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "bigquery-ml",
+    "bigquery"
+  ],
+  "relatedPaths": []
+}

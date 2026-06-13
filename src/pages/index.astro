@@ -1,17 +1,776 @@
 ---
+/**
+ * index.astro — Homepage
+ * Cloud Intelligence Center
+ *
+ * Layout: 45/55 split hero (left: brand + stats + CTAs, right: 3D universe placeholder)
+ * 3D universe loaded in Phase 3. This phase: static hero layout + sections 2-4.
+ *
+ * AGENTS.md hero discipline audit:
+ *   - Eyebrow: 1 (Google Cloud Intelligence Platform) ✓
+ *   - Headline: "Cloud Intelligence Center" (1 line) ✓
+ *   - Subtext: 12 words ✓
+ *   - CTAs: 2, different intent (Portfolio vs Skills) ✓
+ *   - Max 4 text elements ✓
+ *   - No trust logo wall inside hero ✓
+ *
+ * Eyebrow count: 1 of 5 sections — within ceil(5/3) = 2 limit ✓
+ */
 
+import BaseLayout from '../layouts/BaseLayout.astro';
+import JsonLD from '../components/seo/JsonLD.astro';
+import { getCollection } from 'astro:content';
+import { computeStats, computeGraphData } from '../lib/analytics/computeStats';
+import { ArrowRight, ArrowSquareOut } from '@phosphor-icons/react';
+import { CloudIntelligenceMonolith } from '../components/hero/CloudIntelligenceMonolith';
+import profileData from '../data/profile.json';
+import syncData from '../data/sync-metadata.json';
+import analyticsData from '../data/analytics.json';
+
+// Load all content collections (Astro 6: glob loader — data is in entry.data)
+const badgeEntries = await getCollection('badges');
+const categoryEntries = await getCollection('categories');
+const technologyEntries = await getCollection('technologies');
+
+// Extract plain data objects for analytics
+const badges = badgeEntries.map((e) => e.data);
+const categories = categoryEntries.map((e) => e.data);
+const technologies = technologyEntries.map((e) => e.data);
+
+
+// Compute analytics at build time
+const stats = computeStats(badges, categories, technologies);
+const graphData = computeGraphData(badges, categories, technologies);
+
+// Category color map for tiles
+const categoryColorMap: Record<string, string> = {
+  'ai-and-ml':              'var(--color-ai-ml)',
+  'data-analytics':         'var(--color-data)',
+  'cloud-infrastructure':   'var(--color-infra)',
+  'networking':             'var(--color-networking)',
+  'security':               'var(--color-security)',
+  'devops':                 'var(--color-devops)',
+  'application-development':'var(--color-appdev)',
+};
+
+// Homepage JSON-LD
+const profilePageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  name: 'Cloud Intelligence Center — Rajath Kiran',
+  description: "The definitive public record of Rajath Kiran's Google Cloud learning journey, achievements, and expertise.",
+  url: 'https://cloud.rajathkiran.me',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Rajath Kiran',
+    url: 'https://rajathkiran.me',
+  },
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Cloud Intelligence Center — Rajath Kiran's Google Cloud Journey"
+  description="The definitive public record of Rajath Kiran's Google Cloud learning journey. Explore badges, technologies, knowledge graphs, and cloud expertise across AI, data, infrastructure, and more."
+>
+  <Fragment slot="head">
+    <JsonLD schema={profilePageSchema} />
+  </Fragment>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       HERO — 45/55 split
+       Left: brand + stats + CTAs
+       Right: 3D Universe (placeholder in Phase 0/1, live in Phase 3)
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="hero-section" aria-label="Introduction">
+    <div class="container-page hero-inner">
+
+      <!-- Left: Content (45%) -->
+      <div class="hero-left">
+
+        <!-- Eyebrow (1 of 2 allowed across 5 sections) -->
+        <p class="eyebrow hero-eyebrow">Google Cloud Intelligence Platform</p>
+
+        <!-- Headline — max 2 lines, planned at text-5xl/text-6xl -->
+        <h1 class="hero-headline">
+          Cloud Intelligence<br />Center
+        </h1>
+
+        <!-- Subtext — 12 words, 1 line desktop -->
+        <p class="hero-subtext">
+          The definitive public record of Rajath Kiran's Google Cloud learning journey.
+        </p>
+
+        <!-- Stats row — not inside text stack, separate element -->
+        <div class="hero-stats" aria-label="Quick statistics">
+          <div class="stat-item">
+            <span class="stat-value">{stats.totalBadges}</span>
+            <span class="stat-label">Badges</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-value">{stats.totalTechnologies}</span>
+            <span class="stat-label">Technologies</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-value">{stats.totalCategories}</span>
+            <span class="stat-label">Domains</span>
+          </div>
+        </div>
+
+        <!-- CTAs — 2 max, different intents: Portfolio (visit) + Skills (view) -->
+        <div class="hero-ctas">
+          <a
+            href="https://rajathkiran.me"
+            class="btn-primary"
+            target="_blank"
+            rel="noopener noreferrer me"
+            aria-label="Visit Rajath Kiran's main portfolio"
+          >
+            Visit Portfolio
+            <ArrowSquareOut size={14} weight="bold" client:load />
+          </a>
+          <a
+            href="https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0"
+            class="btn-secondary"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Google Skills profile"
+          >
+            View Skills Profile
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Right: The Cloud Intelligence Monolith (55%) -->
+      <div class="hero-right" aria-label="Cloud Intelligence Monolith">
+        <CloudIntelligenceMonolith 
+          client:load 
+          badges={badges.map(b => ({ id: b.id, name: b.name, category: b.category, badgeImageUrl: b.badgeImageUrl }))}
+          profile={profileData}
+          analytics={analyticsData}
+          sync={syncData}
+        />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 2: Cloud Genome Preview
+       No eyebrow on this section (eyebrow budget used in hero)
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="genome-section" aria-labelledby="genome-heading">
+    <div class="container-page">
+
+      <div class="section-header">
+        <h2 id="genome-heading" class="section-title">Cloud Genome</h2>
+        <p class="section-subtitle">Coverage across Google Cloud domains, computed from actual badges earned.</p>
+      </div>
+
+      <div class="genome-grid">
+        {categories.map((cat) => {
+          const count = stats.categoryBreakdown[cat.id] ?? 0;
+          const score = stats.genomeScores[cat.id] ?? 0;
+          const color = categoryColorMap[cat.id] ?? 'var(--color-accent)';
+          return (
+            <a
+              href={`/category/${cat.id}`}
+              class="genome-tile hover-lift"
+              aria-label={`${cat.name}: ${count} badges`}
+            >
+              <div class="genome-tile-header">
+                <span class="genome-dot" style={`background: ${color}`} aria-hidden="true"></span>
+                <span class="genome-name">{cat.shortName}</span>
+                <span class="genome-count">{count}</span>
+              </div>
+              <div class="genome-bar-track" aria-label={`${score}% coverage`}>
+                <div
+                  class="genome-bar-fill"
+                  style={`width: ${score}%; background: ${color}`}
+                ></div>
+              </div>
+              <p class="genome-desc">{cat.description.slice(0, 72)}…</p>
+            </a>
+          );
+        })}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 3: Recent Badges
+       Asymmetric layout — not 3-equal-cards
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="badges-section" aria-labelledby="badges-heading">
+    <div class="container-page">
+
+      <div class="section-header section-header-split">
+        <h2 id="badges-heading" class="section-title">Earned Badges</h2>
+        <a href="/badge" class="section-link">
+          All {stats.totalBadges} badges
+          <ArrowRight size={14} client:load />
+        </a>
+      </div>
+
+      <div class="badges-bento">
+        {badges.slice(0, 5).map((badge, i) => {
+          const color = categoryColorMap[badge.category] ?? 'var(--color-accent)';
+          const isLarge = i === 0;
+          return (
+            <a
+              href={`/badge/${badge.id}`}
+              class={`badge-tile hover-lift surface-card ${isLarge ? 'badge-tile-large' : ''}`}
+              aria-label={badge.name}
+            >
+              <div class="badge-tile-accent" style={`background: ${color}12`}></div>
+              <div class="badge-tile-content">
+                <span class={`badge-pill difficulty-${badge.difficulty}`} aria-label={`Difficulty: ${badge.difficulty}`}>
+                  {badge.difficulty}
+                </span>
+                <h3 class="badge-tile-name">{badge.name}</h3>
+                <p class="badge-tile-desc">{badge.description.slice(0, 80)}…</p>
+                {badge.earnedDate && (
+                  <time class="badge-tile-date" datetime={badge.earnedDate}>
+                    {new Date(badge.earnedDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  </time>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       SECTION 4: Navigation tiles (no eyebrow — budget exhausted)
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section class="nav-tiles-section" aria-labelledby="explore-heading">
+    <div class="container-page">
+
+      <h2 id="explore-heading" class="section-title">Explore the Platform</h2>
+
+      <div class="nav-tiles-grid">
+        <a href="/genome" class="nav-tile surface-card hover-lift">
+          <div class="nav-tile-icon" style="--tile-color: var(--color-ai-ml)" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <polygon points="10,2 18,7 18,13 10,18 2,13 2,7" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="10" cy="10" r="3" fill="currentColor" opacity="0.6"/>
+            </svg>
+          </div>
+          <h3 class="nav-tile-title">Cloud Genome</h3>
+          <p class="nav-tile-desc">Coverage across all 7 cloud domains.</p>
+        </a>
+
+        <a href="/observatory" class="nav-tile surface-card hover-lift">
+          <div class="nav-tile-icon" style="--tile-color: var(--color-data)" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect x="2" y="10" width="3" height="8" rx="1" fill="currentColor" opacity="0.6"/>
+              <rect x="7" y="6" width="3" height="12" rx="1" fill="currentColor" opacity="0.8"/>
+              <rect x="12" y="3" width="3" height="15" rx="1" fill="currentColor"/>
+              <rect x="17" y="7" width="3" height="11" rx="1" fill="currentColor" opacity="0.7"/>
+            </svg>
+          </div>
+          <h3 class="nav-tile-title">Observatory</h3>
+          <p class="nav-tile-desc">Activity heatmap and growth trends.</p>
+        </a>
+
+        <a href="/graph" class="nav-tile surface-card hover-lift">
+          <div class="nav-tile-icon" style="--tile-color: var(--color-infra)" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="2" fill="currentColor"/>
+              <circle cx="3" cy="5" r="1.5" fill="currentColor" opacity="0.7"/>
+              <circle cx="17" cy="5" r="1.5" fill="currentColor" opacity="0.7"/>
+              <circle cx="3" cy="15" r="1.5" fill="currentColor" opacity="0.7"/>
+              <circle cx="17" cy="15" r="1.5" fill="currentColor" opacity="0.7"/>
+              <line x1="10" y1="10" x2="3" y2="5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+              <line x1="10" y1="10" x2="17" y2="5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+              <line x1="10" y1="10" x2="3" y2="15" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+              <line x1="10" y1="10" x2="17" y2="15" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            </svg>
+          </div>
+          <h3 class="nav-tile-title">Knowledge Graph</h3>
+          <p class="nav-tile-desc">Badge relationships and technology connections.</p>
+        </a>
+
+        <a href="/about" class="nav-tile surface-card hover-lift">
+          <div class="nav-tile-icon" style="--tile-color: var(--color-devops)" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M3 18c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3 class="nav-tile-title">About</h3>
+          <p class="nav-tile-desc">Identity, mission, and context.</p>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ─── Hero ───────────────────────────────────────────────────────────────── */
+
+  .hero-section {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 80px;
+    position: relative;
+  }
+
+  /* Subtle radial glow behind hero */
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(66, 133, 244, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+    padding-top: 80px;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-inner {
+      grid-template-columns: 45fr 55fr;
+      gap: 64px;
+      padding-top: 0;
+    }
+  }
+
+  /* Left side */
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .hero-eyebrow {
+    /* Eyebrow from global.css utility */
+  }
+
+  .hero-headline {
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .hero-subtext {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: 42ch;
+    margin: 0;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .stat-value {
+    font-family: var(--font-mono);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 32px;
+    background: var(--color-border);
+  }
+
+  .hero-ctas {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* Right side */
+  .hero-right {
+    display: block;
+    min-height: 480px;
+    height: 480px;
+    position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-right {
+      height: 540px;
+    }
+  }
+
+  .universe-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    background: var(--color-surface);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .universe-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(66, 133, 244, 0.05) 0%, transparent 70%);
+  }
+
+  .universe-placeholder-inner {
+    position: relative;
+    width: 200px;
+    height: 200px;
+  }
+
+  .universe-dot {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .universe-dot-center {
+    width: 16px;
+    height: 16px;
+    background: var(--color-accent);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 16px var(--color-accent-glow);
+    animation: pulse-center 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-center {
+    0%, 100% { box-shadow: 0 0 16px var(--color-accent-glow); }
+    50% { box-shadow: 0 0 32px var(--color-accent-glow), 0 0 8px var(--color-accent); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @keyframes pulse-center { 0%, 100% {} }
+  }
+
+  .universe-dot-orbit {
+    width: 8px;
+    height: 8px;
+    background: var(--orbit-color, var(--color-accent));
+    opacity: 0.8;
+    top: calc(50% + sin(var(--orbit-angle)) * 80px);
+    left: calc(50% + cos(var(--orbit-angle)) * 80px);
+    transform: translate(-50%, -50%);
+  }
+
+  .orbit-label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--orbit-color, var(--color-text-tertiary));
+    white-space: nowrap;
+    opacity: 0.7;
+  }
+
+  .placeholder-label {
+    position: absolute;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  /* ─── Section shared ──────────────────────────────────────────────────── */
+
+  .genome-section,
+  .badges-section,
+  .nav-tiles-section {
+    padding: 96px 0;
+  }
+
+  .section-header {
+    margin-bottom: 40px;
+  }
+
+  .section-header-split {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin: 0 0 8px;
+  }
+
+  .section-subtitle {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    max-width: 56ch;
+  }
+
+  .section-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-accent);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 150ms ease;
+    flex-shrink: 0;
+  }
+
+  .section-link:hover {
+    opacity: 0.8;
+  }
+
+  /* ─── Genome Grid ─────────────────────────────────────────────────────── */
+
+  .genome-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  .genome-tile {
+    padding: 20px;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: pointer;
+    transition: border-color 200ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .genome-tile:hover {
+    border-color: var(--color-border-subtle);
+    border-color: rgba(66, 133, 244, 0.3);
+  }
+
+  .genome-tile-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .genome-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .genome-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    flex: 1;
+  }
+
+  .genome-count {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+
+  .genome-bar-track {
+    height: 3px;
+    background: var(--color-border);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+  }
+
+  .genome-bar-fill {
+    height: 100%;
+    border-radius: var(--radius-pill);
+    transition: width 600ms var(--ease-spring);
+  }
+
+  .genome-desc {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ─── Badges Bento ────────────────────────────────────────────────────── */
+
+  .badges-bento {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .badges-bento {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .badge-tile-large {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .badges-bento {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .badge-tile-large {
+      grid-column: span 2;
+    }
+  }
+
+  .badge-tile {
+    position: relative;
+    padding: 20px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+    min-height: 140px;
+    transition: border-color 200ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .badge-tile-accent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    transform: translate(40px, -40px);
+    pointer-events: none;
+  }
+
+  .badge-tile-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .badge-tile-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .badge-tile-large .badge-tile-name {
+    font-size: 18px;
+  }
+
+  .badge-tile-desc {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .badge-tile-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.04em;
+    margin-top: auto;
+  }
+
+  /* ─── Nav Tiles ───────────────────────────────────────────────────────── */
+
+  .nav-tiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .nav-tile {
+    padding: 24px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 200ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .nav-tile-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: rgba(66, 133, 244, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tile-color, var(--color-accent));
+  }
+
+  .nav-tile-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .nav-tile-desc {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>

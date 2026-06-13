@@ -1,0 +1,23 @@
+{
+  "id": "23876508",
+  "name": "Implementing Cloud Load Balancing for Compute Engine",
+  "description": "Earned Google Cloud skill badge: Implementing Cloud Load Balancing for Compute Engine",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/65Pd0zpjzRHMv49XZZhvHJkbQK2xACKFY1ldTPWsJL8%3D",
+  "localImagePath": "/badges/23876508.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/23876508",
+  "earnedDate": "2026-04-29",
+  "earnedDateRaw": "Apr 29, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "compute-engine",
+    "cloud-load-balancing"
+  ],
+  "difficulty": "introductory",
+  "type": "skill_badge",
+  "tags": [
+    "compute-engine",
+    "cloud-load-balancing"
+  ],
+  "relatedPaths": []
+}

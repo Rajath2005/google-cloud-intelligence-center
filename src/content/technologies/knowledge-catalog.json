@@ -1,0 +1,8 @@
+{
+  "id": "knowledge-catalog",
+  "name": "Data Catalog (Knowledge Catalog)",
+  "description": "Metadata management service for discovery, understanding, and governance of data.",
+  "category": "data-analytics",
+  "gcpProductUrl": "https://cloud.google.com/data-catalog",
+  "relatedTechnologies": []
+}

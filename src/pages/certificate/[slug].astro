@@ -1,0 +1,241 @@
+---
+/**
+ * /certificate/[slug].astro — Certificate detail page
+ * Schema: EducationalOccupationalCredential (high-credibility signal)
+ */
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JsonLD from '../../components/seo/JsonLD.astro';
+import Breadcrumbs from '../../components/seo/Breadcrumbs.astro';
+import { getCollection } from 'astro:content';
+import { ArrowSquareOut, Certificate, Calendar } from '@phosphor-icons/react';
+
+export async function getStaticPaths() {
+  const certs = await getCollection('certificates');
+  return certs.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const cert = entry.data;
+
+const canonicalUrl = `https://cloud.rajathkiran.me/certificate/${entry.id}`;
+
+const credentialSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOccupationalCredential',
+  name: cert.name,
+  description: cert.description,
+  url: canonicalUrl,
+  credentialCategory: 'Professional Certificate',
+  recognizedBy: {
+    '@type': 'Organization',
+    name: cert.issuer,
+  },
+  ...(cert.earnedDate ? { dateCreated: cert.earnedDate } : {}),
+  ...(cert.expiryDate ? { expires: cert.expiryDate } : {}),
+  holder: {
+    '@type': 'Person',
+    name: 'Rajath Kiran',
+    url: 'https://rajathkiran.me',
+  },
+};
+---
+
+<BaseLayout
+  title={`${cert.name} Certificate — Rajath Kiran | Cloud Intelligence Center`}
+  description={`${cert.name} certificate earned by Rajath Kiran from ${cert.issuer}. ${cert.description.slice(0, 100)}`}
+  canonicalUrl={canonicalUrl}
+  ogType="article"
+>
+  <Fragment slot="head">
+    <JsonLD schema={credentialSchema} />
+  </Fragment>
+
+  <div class="container-page cert-page">
+
+    <Breadcrumbs
+      items={[
+        { name: 'Home', href: '/' },
+        { name: 'Certificates', href: '/badge' },
+        { name: cert.name },
+      ]}
+    />
+
+    <article class="cert-hero" aria-labelledby="cert-title">
+      <div class="cert-hero-content">
+        <div class="cert-icon-wrap" aria-hidden="true">
+          {cert.badgeImageUrl ? (
+            <img src={cert.badgeImageUrl} alt="" width="96" height="96" class="cert-badge-img" loading="eager" />
+          ) : (
+            <Certificate size={48} weight="thin" style={{ color: "var(--color-accent)" }} />
+          )}
+        </div>
+        <div class="cert-text">
+          <span class="cert-issuer">{cert.issuer}</span>
+          <h1 id="cert-title" class="cert-title">{cert.name}</h1>
+          <p class="cert-desc">{cert.description}</p>
+          <div class="cert-dates">
+            {cert.earnedDate && (
+              <div class="cert-date-item">
+                <Calendar size={14} weight="bold" aria-hidden />
+                <time datetime={cert.earnedDate}>
+                  Earned {new Date(cert.earnedDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                </time>
+              </div>
+            )}
+            {cert.expiryDate && (
+              <div class="cert-date-item">
+                <Calendar size={14} weight="bold" aria-hidden />
+                <time datetime={cert.expiryDate}>
+                  Expires {new Date(cert.expiryDate).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                </time>
+              </div>
+            )}
+          </div>
+          {cert.credentialUrl && (
+            <a href={cert.credentialUrl} class="btn-primary" target="_blank" rel="noopener noreferrer">
+              Verify Credential
+              <ArrowSquareOut size={14} weight="bold" aria-hidden />
+            </a>
+          )}
+        </div>
+      </div>
+
+      {cert.skills.length > 0 && (
+        <div class="cert-skills">
+          <p class="cert-skills-label">Skills covered</p>
+          <div class="cert-skill-chips">
+            {cert.skills.map((skill) => (
+              <span class="badge-pill">{skill}</span>
+            ))}
+          </div>
+        </div>
+      )}
+    </article>
+
+  </div>
+</BaseLayout>
+
+<style>
+  .cert-page {
+    padding-top: 32px;
+    padding-bottom: 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .cert-hero {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .cert-hero-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  @media (min-width: 640px) {
+    .cert-hero-content {
+      grid-template-columns: 100px 1fr;
+    }
+  }
+
+  .cert-icon-wrap {
+    width: 96px;
+    height: 96px;
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 8px;
+  }
+
+  .cert-badge-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .cert-text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cert-issuer {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cert-title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .cert-desc {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .cert-dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .cert-date-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+  }
+
+  .cert-skills {
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cert-skills-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+  }
+
+  .cert-skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>

@@ -1,0 +1,21 @@
+{
+  "id": "24185251",
+  "name": "Use Functions, Formulas, and Charts in Google Sheets",
+  "description": "Earned Google Cloud skill badge: Use Functions, Formulas, and Charts in Google Sheets",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/0G14HiieShpIQWSv%2Fmz%2FHONOtEtCljUWKGMYyfEnsC4%3D",
+  "localImagePath": "/badges/24185251.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24185251",
+  "earnedDate": "2026-05-15",
+  "earnedDateRaw": "May 15, 2026 EDT",
+  "category": "application-development",
+  "technologies": [
+    "google-workspace"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "google-workspace"
+  ],
+  "relatedPaths": []
+}

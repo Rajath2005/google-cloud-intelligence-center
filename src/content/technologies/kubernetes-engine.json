@@ -1,0 +1,8 @@
+{
+  "id": "kubernetes-engine",
+  "name": "Google Kubernetes Engine",
+  "description": "Managed Kubernetes service for containerized application deployment, management, and scaling.",
+  "category": "cloud-infrastructure",
+  "gcpProductUrl": "https://cloud.google.com/kubernetes-engine",
+  "relatedTechnologies": []
+}

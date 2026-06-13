@@ -1,0 +1,23 @@
+{
+  "id": "24221857",
+  "name": "Create ML Models with BigQuery ML",
+  "description": "Earned Google Cloud skill badge: Create ML Models with BigQuery ML",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/N7YJ6ts7amzUsmbeFYSW4Pjxrbnf3%2BEp0GJ6Q9zRiHE%3D",
+  "localImagePath": "/badges/24221857.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24221857",
+  "earnedDate": "2026-05-17",
+  "earnedDateRaw": "May 17, 2026 EDT",
+  "category": "ai-and-ml",
+  "technologies": [
+    "bigquery-ml",
+    "bigquery"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "bigquery-ml",
+    "bigquery"
+  ],
+  "relatedPaths": []
+}

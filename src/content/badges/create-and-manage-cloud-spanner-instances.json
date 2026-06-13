@@ -1,0 +1,21 @@
+{
+  "id": "23877808",
+  "name": "Create and Manage Cloud Spanner Instances",
+  "description": "Earned Google Cloud skill badge: Create and Manage Cloud Spanner Instances",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/evdyXTK%2B7bFYY0CtRYIuU%2FNx4a0TW06vwiIjxVcKYMY%3D",
+  "localImagePath": "/badges/23877808.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/23877808",
+  "earnedDate": "2026-04-29",
+  "earnedDateRaw": "Apr 29, 2026 EDT",
+  "category": "data-analytics",
+  "technologies": [
+    "cloud-spanner"
+  ],
+  "difficulty": "introductory",
+  "type": "skill_badge",
+  "tags": [
+    "cloud-spanner"
+  ],
+  "relatedPaths": []
+}

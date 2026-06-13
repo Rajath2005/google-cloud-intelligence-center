@@ -1,0 +1,8 @@
+{
+  "id": "cloud-monitoring",
+  "name": "Cloud Monitoring",
+  "description": "Full-stack monitoring, logging, and diagnostics for applications on Google Cloud.",
+  "category": "cloud-infrastructure",
+  "gcpProductUrl": "https://cloud.google.com/monitoring",
+  "relatedTechnologies": []
+}

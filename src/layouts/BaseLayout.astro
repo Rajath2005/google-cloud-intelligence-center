@@ -1,0 +1,150 @@
+---
+/**
+ * BaseLayout.astro
+ * Root layout for all pages. Provides:
+ * - Global CSS import
+ * - SEO head (via slot + SEOHead component)
+ * - Global JSON-LD: WebSite + Person schemas
+ * - SiteHeader + SiteFooter
+ * - FloatingAccessPanel (client:load)
+ * - Skip-to-content link for keyboard users
+ */
+
+import SEOHead from '../components/seo/SEOHead.astro';
+import JsonLD from '../components/seo/JsonLD.astro';
+import SiteHeader from '../components/layout/SiteHeader.astro';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import FloatingAccessPanel from '../components/layout/FloatingAccessPanel';
+import { GlassTransition } from '../components/layout/GlassTransition';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl = new URL(Astro.url.pathname, 'https://cloud.rajathkiran.me').href,
+  ogImage,
+  ogType = 'website',
+  noindex = false,
+} = Astro.props;
+
+// Global Person schema — injected on every page
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Rajath Kiran',
+  url: 'https://rajathkiran.me',
+  sameAs: [
+    'https://github.com/Rajath2005',
+    'http://linkedin.com/in/rajath-kiran/',
+    'https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0',
+    'https://cloud.rajathkiran.me',
+  ],
+  knowsAbout: [
+    'Google Cloud',
+    'Vertex AI',
+    'BigQuery',
+    'Gemini',
+    'Cloud Run',
+    'Kubernetes',
+    'Machine Learning',
+    'Generative AI',
+    'Data Analytics',
+    'Cloud Infrastructure',
+  ],
+};
+
+// WebSite schema — enables Sitelinks Searchbox in future
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Cloud Intelligence Center',
+  description: "The complete public record of Rajath Kiran's Google Cloud journey, achievements, and expertise.",
+  url: 'https://cloud.rajathkiran.me',
+  author: {
+    '@type': 'Person',
+    name: 'Rajath Kiran',
+    url: 'https://rajathkiran.me',
+  },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SEOHead
+      title={title}
+      description={description}
+      canonicalUrl={canonicalUrl}
+      ogImage={ogImage}
+      ogType={ogType}
+      noindex={noindex}
+    />
+    <JsonLD schema={[personSchema, websiteSchema]} />
+    <slot name="head" />
+    <script is:inline>
+      (function() {
+        try {
+          var saved = localStorage.getItem('cloud-env');
+          var envs = ['night-ops', 'deep-space', 'aurora', 'mission-control'];
+          if (saved && envs.includes(saved)) {
+            document.documentElement.setAttribute('data-env', saved);
+          } else {
+            var randomEnv = envs[Math.floor(Math.random() * envs.length)];
+            document.documentElement.setAttribute('data-env', randomEnv);
+            localStorage.setItem('cloud-env', randomEnv);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+
+    <!-- Skip to main content (WCAG) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <SiteHeader />
+
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+
+    <SiteFooter />
+
+    <!-- Floating access panel: always-on identity links -->
+    <FloatingAccessPanel client:load />
+
+    <!-- Global Glass Morph Transition Overlay -->
+    <GlassTransition client:load />
+
+  </body>
+</html>
+
+<style is:global>
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    z-index: calc(var(--z-nav) + 1);
+    padding: 8px 16px;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    text-decoration: none;
+    transition: top 150ms ease;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+</style>

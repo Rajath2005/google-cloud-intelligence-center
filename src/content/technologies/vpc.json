@@ -1,0 +1,8 @@
+{
+  "id": "vpc",
+  "name": "Virtual Private Cloud",
+  "description": "Managed networking functionality for Google Cloud resources.",
+  "category": "networking",
+  "gcpProductUrl": "https://cloud.google.com/vpc",
+  "relatedTechnologies": []
+}

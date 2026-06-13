@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-06-13T08:11:24.871Z",
+  "totalBadges": 62,
+  "totalTechnologies": 21,
+  "totalCategories": 7,
+  "categoryBreakdown": {
+    "cloud-infrastructure": 38,
+    "security": 2,
+    "data-analytics": 5,
+    "ai-and-ml": 10,
+    "networking": 1,
+    "application-development": 4,
+    "devops": 2
+  },
+  "monthlyAcquisition": {
+    "2026-06": 7,
+    "2026-05": 26,
+    "2026-04": 6,
+    "2026-03": 6,
+    "2026-02": 6,
+    "2026-01": 10,
+    "2025-11": 1
+  },
+  "topTechnologies": [
+    {
+      "id": "bigquery",
+      "count": 5
+    },
+    {
+      "id": "cloud-monitoring",
+      "count": 5
+    },
+    {
+      "id": "cloud-build",
+      "count": 4
+    },
+    {
+      "id": "kubernetes-engine",
+      "count": 4
+    },
+    {
+      "id": "compute-engine",
+      "count": 3
+    },
+    {
+      "id": "cloud-functions",
+      "count": 2
+    },
+    {
+      "id": "google-workspace",
+      "count": 2
+    },
+    {
+      "id": "cloud-natural-language-api",
+      "count": 2
+    },
+    {
+      "id": "bigquery-ml",
+      "count": 2
+    },
+    {
+      "id": "cloud-storage",
+      "count": 2
+    },
+    {
+      "id": "terraform",
+      "count": 1
+    },
+    {
+      "id": "firebase",
+      "count": 1
+    },
+    {
+      "id": "cloud-run",
+      "count": 1
+    },
+    {
+      "id": "iam",
+      "count": 1
+    },
+    {
+      "id": "knowledge-catalog",
+      "count": 1
+    }
+  ],
+  "difficultyBreakdown": {
+    "intermediate": 62
+  },
+  "typeBreakdown": {
+    "skill_badge": 62
+  },
+  "strongestCategoryId": "cloud-infrastructure",
+  "strongestCategoryCount": 38,
+  "firstBadgeDate": "2025-11-23",
+  "latestBadgeDate": "2026-06-11",
+  "latestBadgeName": "Build Infrastructure with Terraform on Google Cloud"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "cloud-run",
+  "name": "Cloud Run",
+  "description": "Fully managed container platform that scales stateless containers automatically.",
+  "category": "cloud-infrastructure",
+  "gcpProductUrl": "https://cloud.google.com/run",
+  "relatedTechnologies": []
+}

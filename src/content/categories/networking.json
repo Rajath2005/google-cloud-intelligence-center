@@ -1,0 +1,8 @@
+{
+  "id": "networking",
+  "name": "Networking",
+  "description": "Virtual private cloud, load balancing, network connectivity, and hybrid networking on Google Cloud.",
+  "icon": "Globe",
+  "colorToken": "--color-network",
+  "shortName": "Network"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "24851746",
+  "name": "Optimize Costs for Google Kubernetes Engine",
+  "description": "Earned Google Cloud skill badge: Optimize Costs for Google Kubernetes Engine",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/HericulAgqoO5iEbCxvzeXLJiX%2F4r9KeW3xrI9AKXHw%3D",
+  "localImagePath": "/badges/24851746.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24851746",
+  "earnedDate": "2026-06-11",
+  "earnedDateRaw": "Jun 11, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "kubernetes-engine"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "kubernetes-engine"
+  ],
+  "relatedPaths": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "24821594",
+  "name": "Implement Cloud Security Fundamentals on Google Cloud",
+  "description": "Earned Google Cloud skill badge: Implement Cloud Security Fundamentals on Google Cloud",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/xira2p%2F3wlj6940tZP0W54GdMCwP144nYckzIpKbajY%3D",
+  "localImagePath": "/badges/24821594.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/24821594",
+  "earnedDate": "2026-06-10",
+  "earnedDateRaw": "Jun 10, 2026 EDT",
+  "category": "security",
+  "technologies": [
+    "iam"
+  ],
+  "difficulty": "intermediate",
+  "type": "skill_badge",
+  "tags": [
+    "iam"
+  ],
+  "relatedPaths": []
+}

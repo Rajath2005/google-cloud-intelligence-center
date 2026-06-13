@@ -1,0 +1,449 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────────────────────
+   ONE cool neutral family throughout. No warm grays mixed in.
+   Accent: Google Blue (#4285f4). Not AI-purple (LILA rule honored).
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  /* ─── 1. Night Ops (Default) ─── */
+  :root,
+  [data-env="night-ops"] {
+    --color-bg:              #050505;
+    --color-surface:         #0a0a0a;
+    --color-surface-raised:  #141414;
+    --color-surface-hover:   #1f1f1f;
+    --color-border:          #262626;
+    --color-border-subtle:   #171717;
+    --color-accent:          #4285f4;
+    --color-accent-hover:    #5a9af5;
+    --color-accent-dim:      rgba(66, 133, 244, 0.12);
+    --color-accent-glow:     rgba(66, 133, 244, 0.20);
+    --color-text-primary:    #e8edf5;
+    --color-text-secondary:  #8899b4;
+    --color-text-tertiary:   #4a5f7a;
+    --color-text-on-accent:  #ffffff;
+
+    /* Shapes */
+    --radius-card:   12px;
+    --radius-input:  8px;
+    --radius-pill:   9999px;
+    --radius-sm:     6px;
+  }
+
+  /* ─── 2. Deep Space ─── */
+  [data-env="deep-space"] {
+    --color-bg:              #020617;
+    --color-surface:         #0f172a;
+    --color-surface-raised:  #1e293b;
+    --color-surface-hover:   #334155;
+    --color-border:          #334155;
+    --color-border-subtle:   #1e293b;
+    --color-accent:          #38bdf8;
+    --color-accent-hover:    #7dd3fc;
+    --color-accent-dim:      rgba(56, 189, 248, 0.12);
+    --color-accent-glow:     rgba(56, 189, 248, 0.20);
+    --color-text-primary:    #f8fafc;
+    --color-text-secondary:  #94a3b8;
+    --color-text-tertiary:   #475569;
+    --color-text-on-accent:  #020617;
+
+    /* Shapes */
+    --radius-card:   16px;
+    --radius-input:  8px;
+    --radius-pill:   9999px;
+    --radius-sm:     8px;
+  }
+
+  /* ─── 3. Aurora ─── */
+  [data-env="aurora"] {
+    --color-bg:              #0a0814;
+    --color-surface:         #130f26;
+    --color-surface-raised:  #1d1738;
+    --color-surface-hover:   #28214a;
+    --color-border:          #3b316b;
+    --color-border-subtle:   #1d1738;
+    --color-accent:          #10b981;
+    --color-accent-hover:    #34d399;
+    --color-accent-dim:      rgba(16, 185, 129, 0.15);
+    --color-accent-glow:     rgba(16, 185, 129, 0.25);
+    --color-text-primary:    #f8fafc;
+    --color-text-secondary:  #94a3b8;
+    --color-text-tertiary:   #475569;
+    --color-text-on-accent:  #000000;
+
+    /* Shapes */
+    --radius-card:   24px;
+    --radius-input:  12px;
+    --radius-pill:   9999px;
+    --radius-sm:     10px;
+  }
+
+  /* ─── 4. Mission Control ─── */
+  [data-env="mission-control"] {
+    --color-bg:              #0c0c0c;
+    --color-surface:         #121212;
+    --color-surface-raised:  #1a1a1a;
+    --color-surface-hover:   #242424;
+    --color-border:          #333333;
+    --color-border-subtle:   #1f1f1f;
+    --color-accent:          #f59e0b;
+    --color-accent-hover:    #fbbf24;
+    --color-accent-dim:      rgba(245, 158, 11, 0.12);
+    --color-accent-glow:     rgba(245, 158, 11, 0.20);
+    --color-text-primary:    #fffbeb;
+    --color-text-secondary:  #a1a1aa;
+    --color-text-tertiary:   #52525b;
+    --color-text-on-accent:  #000000;
+
+    /* Shapes - Brutalist */
+    --radius-card:   2px;
+    --radius-input:  0px;
+    --radius-pill:   2px;
+    --radius-sm:     0px;
+  }
+
+  :root {
+
+    /* Category accent colors (distinct, Google brand-inspired) */
+    --color-ai-ml:           #4285f4;   /* Google Blue */
+    --color-data:            #fbbc04;   /* Google Yellow */
+    --color-infra:           #34a853;   /* Google Green */
+    --color-networking:      #ea4335;   /* Google Red */
+    --color-security:        #ff6d00;   /* Orange */
+    --color-devops:          #00bcd4;   /* Cyan */
+    --color-appdev:          #ab47bc;   /* Purple — category-specific only */
+
+    /* Spacing rhythm (8pt grid) */
+    --space-1:  4px;
+    --space-2:  8px;
+    --space-3:  12px;
+    --space-4:  16px;
+    --space-6:  24px;
+    --space-8:  32px;
+    --space-12: 48px;
+    --space-16: 64px;
+    --space-24: 96px;
+
+    /* Typography */
+    --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+    --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, monospace;
+
+    /* Motion */
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+    --duration-fast:   150ms;
+    --duration-base:   250ms;
+    --duration-slow:   400ms;
+
+    /* Z-index scale */
+    --z-base:    0;
+    --z-raised:  10;
+    --z-overlay: 20;
+    --z-modal:   40;
+    --z-nav:     100;
+    --z-float:   200;
+  }
+}
+
+/* ─── Geist Font (self-hosted) ───────────────────────────────────────────────
+   font-display: swap prevents FOIT.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Base Styles ────────────────────────────────────────────────────────────*/
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  /* Visible focus rings for keyboard navigation */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Remove default focus ring, keep :focus-visible */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Reduced motion: disable all transitions and animations */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: var(--color-accent-dim);
+    color: var(--color-text-primary);
+  }
+
+  /* Scrollbar (Webkit) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: var(--radius-pill);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-tertiary);
+  }
+}
+
+/* ─── Utility Layer ──────────────────────────────────────────────────────────*/
+
+@layer utilities {
+  /* Container */
+  .container-page {
+    width: 100%;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--space-6);
+    padding-right: var(--space-6);
+  }
+
+  @media (min-width: 1024px) {
+    .container-page {
+      padding-left: var(--space-12);
+      padding-right: var(--space-12);
+    }
+  }
+
+  /* Surface card */
+  .surface-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+
+  .surface-raised {
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+
+  /* Accent glow */
+  .glow-accent {
+    box-shadow: 0 0 32px var(--color-accent-glow);
+  }
+
+  /* Text utilities */
+  .text-gradient-accent {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Eyebrow label (max 1 per 3 sections per AGENTS.md §4.7) */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  /* Badge pill */
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.04em;
+  }
+
+  /* Difficulty badges */
+  .difficulty-introductory { color: var(--color-infra); border-color: rgba(52, 168, 83, 0.3); }
+  .difficulty-intermediate  { color: var(--color-data);  border-color: rgba(251, 188, 4, 0.3); }
+  .difficulty-advanced      { color: var(--color-networking); border-color: rgba(234, 67, 53, 0.3); }
+
+  /* Hover card lift */
+  .hover-lift {
+    transition: transform var(--duration-fast) var(--ease-out),
+                box-shadow var(--duration-fast) var(--ease-out);
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Button press feedback */
+  .btn-press:active {
+    transform: scale(0.98) translateY(1px);
+  }
+}
+
+/* ─── Component Layer ────────────────────────────────────────────────────────*/
+
+@layer components {
+  /* Primary CTA button */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 10px 24px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out);
+    text-decoration: none;
+  }
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+  }
+  .btn-primary:active {
+    transform: scale(0.98) translateY(1px);
+  }
+
+  /* Secondary/ghost button */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 10px 24px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border);
+    background-color: transparent;
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-color var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out);
+    text-decoration: none;
+  }
+  .btn-secondary:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-dim);
+  }
+  .btn-secondary:active {
+    transform: scale(0.98) translateY(1px);
+  }
+
+  /* Nav link */
+  .nav-link {
+    font-size: 14px;
+    font-weight: 450;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+    white-space: nowrap;
+  }
+  .nav-link:hover {
+    color: var(--color-text-primary);
+  }
+  .nav-link[aria-current="page"] {
+    color: var(--color-accent);
+  }
+
+  /* External link in nav */
+  .nav-link-external {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: color var(--duration-fast) var(--ease-out);
+    white-space: nowrap;
+  }
+  .nav-link-external:hover {
+    color: var(--color-accent);
+  }
+}

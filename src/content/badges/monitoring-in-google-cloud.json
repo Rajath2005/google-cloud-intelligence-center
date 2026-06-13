@@ -1,0 +1,23 @@
+{
+  "id": "23877478",
+  "name": "Monitoring in Google Cloud",
+  "description": "Earned Google Cloud skill badge: Monitoring in Google Cloud",
+  "provider": "Google Cloud Skills Boost",
+  "badgeImageUrl": "https://cdn.qwiklabs.com/6b1HAqO0MPg%2F0awR9UdKAUgzrfl9qmnty1cjI2NcPNU%3D",
+  "localImagePath": "/badges/23877478.png",
+  "badgeUrl": "https://www.skills.google/public_profiles/09886862-52b8-44a4-86a5-9559a3952dd0/badges/23877478",
+  "earnedDate": "2026-04-29",
+  "earnedDateRaw": "Apr 29, 2026 EDT",
+  "category": "cloud-infrastructure",
+  "technologies": [
+    "compute-engine",
+    "cloud-monitoring"
+  ],
+  "difficulty": "introductory",
+  "type": "skill_badge",
+  "tags": [
+    "compute-engine",
+    "cloud-monitoring"
+  ],
+  "relatedPaths": []
+}
