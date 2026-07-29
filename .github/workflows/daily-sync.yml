@@ -46,6 +46,6 @@ jobs:
         run: |
           git config --global user.name "Cloud Intelligence Bot"
           git config --global user.email "bot@cloudintelligence.com"
-          git add src/content/ public/media/
+          git add .
           git commit -m "🤖 auto-sync: fetch latest Google Cloud skill badges"
           git push
