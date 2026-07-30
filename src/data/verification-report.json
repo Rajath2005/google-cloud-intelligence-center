@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-06-13T08:11:24.873Z",
+  "generatedAt": "2026-07-30T02:49:33.997Z",
   "profile": {
     "name": "Rajath Kiran",
-    "league": "Silver",
-    "points": 1754,
+    "league": "Gold",
+    "points": 2554,
     "memberSince": "2024",
     "avatarStatus": "found"
   },
   "badges": {
-    "total": 62,
-    "withImages": 62,
-    "withEarnedDate": 62,
-    "latestBadge": "Build Infrastructure with Terraform on Google Cloud",
-    "latestBadgeDate": "2026-06-11",
+    "total": 67,
+    "withImages": 67,
+    "withEarnedDate": 67,
+    "latestBadge": "Implement Event-Driven Messaging and Automation Workflows",
+    "latestBadgeDate": "2026-06-26",
     "oldestBadgeDate": "2025-11-23"
   },
   "categories": {
@@ -20,12 +20,12 @@
     "mostActive": "cloud-infrastructure",
     "mostActiveBadgeCount": 38,
     "breakdown": {
+      "application-development": 5,
+      "ai-and-ml": 14,
       "cloud-infrastructure": 38,
       "security": 2,
       "data-analytics": 5,
-      "ai-and-ml": 10,
       "networking": 1,
-      "application-development": 4,
       "devops": 2
     }
   },
@@ -75,13 +75,13 @@
     ]
   },
   "media": {
-    "totalBadgeImages": 62,
+    "totalBadgeImages": 67,
     "imageCoveragePercent": 100
   },
   "difficulty": {
-    "intermediate": 62
+    "intermediate": 67
   },
   "type": {
-    "skill_badge": 62
+    "skill_badge": 67
   }
 }

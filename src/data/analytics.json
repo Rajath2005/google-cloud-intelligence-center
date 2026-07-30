@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-06-13T08:11:24.871Z",
-  "totalBadges": 62,
+  "generatedAt": "2026-07-30T02:49:33.996Z",
+  "totalBadges": 67,
   "totalTechnologies": 21,
   "totalCategories": 7,
   "categoryBreakdown": {
+    "application-development": 5,
+    "ai-and-ml": 14,
     "cloud-infrastructure": 38,
     "security": 2,
     "data-analytics": 5,
-    "ai-and-ml": 10,
     "networking": 1,
-    "application-development": 4,
     "devops": 2
   },
   "monthlyAcquisition": {
-    "2026-06": 7,
+    "2026-06": 12,
     "2026-05": 26,
     "2026-04": 6,
     "2026-03": 6,
@@ -84,14 +84,14 @@
     }
   ],
   "difficultyBreakdown": {
-    "intermediate": 62
+    "intermediate": 67
   },
   "typeBreakdown": {
-    "skill_badge": 62
+    "skill_badge": 67
   },
   "strongestCategoryId": "cloud-infrastructure",
   "strongestCategoryCount": 38,
   "firstBadgeDate": "2025-11-23",
-  "latestBadgeDate": "2026-06-11",
-  "latestBadgeName": "Build Infrastructure with Terraform on Google Cloud"
+  "latestBadgeDate": "2026-06-26",
+  "latestBadgeName": "Implement Event-Driven Messaging and Automation Workflows"
 }
