@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T02:49:33.995Z",
+  "generatedAt": "2026-07-31T03:32:40.640Z",
   "avatar": {
     "url": "https://lh3.googleusercontent.com/a/ACg8ocLRw_tJKXDE3jwiciD30qSNvpUmqpyjUvQx4WFOGxR_-dOiV_o=s320-c",
     "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/profile/avatar.jpg",
@@ -15,7 +15,7 @@
       "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/badges/25148362.png",
       "publicPath": "/badges/25148362.png",
       "sizeBytes": 68609,
-      "status": "downloaded"
+      "status": "cached"
     },
     {
       "badgeId": "25105764",
@@ -24,7 +24,7 @@
       "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/badges/25105764.png",
       "publicPath": "/badges/25105764.png",
       "sizeBytes": 80732,
-      "status": "downloaded"
+      "status": "cached"
     },
     {
       "badgeId": "25102731",
@@ -33,7 +33,7 @@
       "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/badges/25102731.png",
       "publicPath": "/badges/25102731.png",
       "sizeBytes": 59991,
-      "status": "downloaded"
+      "status": "cached"
     },
     {
       "badgeId": "25092208",
@@ -42,7 +42,7 @@
       "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/badges/25092208.png",
       "publicPath": "/badges/25092208.png",
       "sizeBytes": 65537,
-      "status": "downloaded"
+      "status": "cached"
     },
     {
       "badgeId": "25092013",
@@ -51,7 +51,7 @@
       "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/badges/25092013.png",
       "publicPath": "/badges/25092013.png",
       "sizeBytes": 92984,
-      "status": "downloaded"
+      "status": "cached"
     },
     {
       "badgeId": "24854626",
@@ -614,8 +614,8 @@
   ],
   "summary": {
     "totalBadgeImages": 67,
-    "downloaded": 5,
-    "cached": 62,
+    "downloaded": 0,
+    "cached": 67,
     "failed": 0,
     "coveragePercent": 100
   }
