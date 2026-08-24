@@ -1,18 +1,19 @@
 {
-  "generatedAt": "2026-08-23T01:45:15.957Z",
-  "totalBadges": 67,
+  "generatedAt": "2026-08-24T01:42:54.394Z",
+  "totalBadges": 68,
   "totalTechnologies": 21,
   "totalCategories": 7,
   "categoryBreakdown": {
+    "cloud-infrastructure": 39,
     "application-development": 5,
     "ai-and-ml": 14,
-    "cloud-infrastructure": 38,
     "security": 2,
     "data-analytics": 5,
     "networking": 1,
     "devops": 2
   },
   "monthlyAcquisition": {
+    "2026-08": 1,
     "2026-06": 12,
     "2026-05": 26,
     "2026-04": 6,
@@ -84,14 +85,14 @@
     }
   ],
   "difficultyBreakdown": {
-    "intermediate": 67
+    "intermediate": 68
   },
   "typeBreakdown": {
-    "skill_badge": 67
+    "skill_badge": 68
   },
   "strongestCategoryId": "cloud-infrastructure",
-  "strongestCategoryCount": 38,
+  "strongestCategoryCount": 39,
   "firstBadgeDate": "2025-11-23",
-  "latestBadgeDate": "2026-06-26",
-  "latestBadgeName": "Implement Event-Driven Messaging and Automation Workflows"
+  "latestBadgeDate": "2026-08-23",
+  "latestBadgeName": "Arcade Re-Trail: Vaults & Vectors"
 }

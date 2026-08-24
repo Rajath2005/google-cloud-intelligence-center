@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T01:45:15.956Z",
+  "generatedAt": "2026-08-24T01:42:54.393Z",
   "avatar": {
     "url": "https://lh3.googleusercontent.com/a/ACg8ocLRw_tJKXDE3jwiciD30qSNvpUmqpyjUvQx4WFOGxR_-dOiV_o=s320-c",
     "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/profile/avatar.jpg",
@@ -8,6 +8,15 @@
     "status": "cached"
   },
   "badges": [
+    {
+      "badgeId": "27141688",
+      "badgeName": "Arcade Re-Trail: Vaults & Vectors",
+      "url": "https://cdn.qwiklabs.com/iAUPykYUheJoZUrArdzblTqFRmY%2Fu6HCGgLoH1KH8fM%3D",
+      "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/badges/27141688.png",
+      "publicPath": "/badges/27141688.png",
+      "sizeBytes": 1131800,
+      "status": "downloaded"
+    },
     {
       "badgeId": "25148362",
       "badgeName": "Implement Event-Driven Messaging and Automation Workflows",
@@ -613,8 +622,8 @@
     }
   ],
   "summary": {
-    "totalBadgeImages": 67,
-    "downloaded": 0,
+    "totalBadgeImages": 68,
+    "downloaded": 1,
     "cached": 67,
     "failed": 0,
     "coveragePercent": 100

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-23T01:45:15.958Z",
+  "generatedAt": "2026-08-24T01:42:54.395Z",
   "profile": {
     "name": "Rajath Kiran",
     "league": "Gold",
@@ -8,21 +8,21 @@
     "avatarStatus": "found"
   },
   "badges": {
-    "total": 67,
-    "withImages": 67,
-    "withEarnedDate": 67,
-    "latestBadge": "Implement Event-Driven Messaging and Automation Workflows",
-    "latestBadgeDate": "2026-06-26",
+    "total": 68,
+    "withImages": 68,
+    "withEarnedDate": 68,
+    "latestBadge": "Arcade Re-Trail: Vaults & Vectors",
+    "latestBadgeDate": "2026-08-23",
     "oldestBadgeDate": "2025-11-23"
   },
   "categories": {
     "total": 7,
     "mostActive": "cloud-infrastructure",
-    "mostActiveBadgeCount": 38,
+    "mostActiveBadgeCount": 39,
     "breakdown": {
+      "cloud-infrastructure": 39,
       "application-development": 5,
       "ai-and-ml": 14,
-      "cloud-infrastructure": 38,
       "security": 2,
       "data-analytics": 5,
       "networking": 1,
@@ -75,13 +75,13 @@
     ]
   },
   "media": {
-    "totalBadgeImages": 67,
+    "totalBadgeImages": 68,
     "imageCoveragePercent": 100
   },
   "difficulty": {
-    "intermediate": 67
+    "intermediate": 68
   },
   "type": {
-    "skill_badge": 67
+    "skill_badge": 68
   }
 }
