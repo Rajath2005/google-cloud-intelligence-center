@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T01:42:54.393Z",
+  "generatedAt": "2026-08-25T01:38:05.394Z",
   "avatar": {
     "url": "https://lh3.googleusercontent.com/a/ACg8ocLRw_tJKXDE3jwiciD30qSNvpUmqpyjUvQx4WFOGxR_-dOiV_o=s320-c",
     "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/profile/avatar.jpg",
@@ -15,7 +15,7 @@
       "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/badges/27141688.png",
       "publicPath": "/badges/27141688.png",
       "sizeBytes": 1131800,
-      "status": "downloaded"
+      "status": "cached"
     },
     {
       "badgeId": "25148362",
@@ -623,8 +623,8 @@
   ],
   "summary": {
     "totalBadgeImages": 68,
-    "downloaded": 1,
-    "cached": 67,
+    "downloaded": 0,
+    "cached": 68,
     "failed": 0,
     "coveragePercent": 100
   }
