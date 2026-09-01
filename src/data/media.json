@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-31T04:57:26.009Z",
+  "generatedAt": "2026-09-01T04:36:14.232Z",
   "avatar": {
     "url": "https://lh3.googleusercontent.com/a/ACg8ocLRw_tJKXDE3jwiciD30qSNvpUmqpyjUvQx4WFOGxR_-dOiV_o=s320-c",
     "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/profile/avatar.jpg",
@@ -46,7 +46,7 @@
     },
     {
       "badgeId": "25092208",
-      "badgeName": "Introduction to Responsible AI",
+      "badgeName": "[DEPRECATED]Introduction to Responsible AI",
       "url": "https://cdn.qwiklabs.com/KFb7gLKebthw1KJHf%2F88XmcqyUuizS6TppVyZ1AR9bA%3D",
       "localPath": "/home/runner/work/google-cloud-intelligence-center/google-cloud-intelligence-center/public/badges/25092208.png",
       "publicPath": "/badges/25092208.png",
